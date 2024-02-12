@@ -118,3 +118,22 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | [Template](https://github.com/php-static-analysis/attributes/blob/main/doc/Template.md)     | `@template`       |
 | [Type](https://github.com/php-static-analysis/attributes/blob/main/doc/Type.md)             | `@var`            |
 
+### Location of Param attributes
+
+By default `Param` attributes are added on the method/function where the `@param` annotation was located. It is possible to instead add them on the corresponding parameter in the function. To activate this option, add this code to your configuration:
+
+```php
+use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+use Rector\Config\RectorConfig;
+...
+
+return RectorConfig::configure()
+    ...
+    ->withConfiguredRule(
+        AnnotationsToAttributesRector::class,
+        [
+            'addParamAttributeOnParameters' => true,
+        ]
+    );
+```
+

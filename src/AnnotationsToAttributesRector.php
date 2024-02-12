@@ -7,6 +7,7 @@ namespace PhpStaticAnalysis\RectorRule;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
@@ -32,13 +33,14 @@ use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Webmozart\Assert\Assert;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
 final class AnnotationsToAttributesRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface
 {
     #[Type('AnnotationToAttribute[]')]
     private array $annotationsToAttributes = [];
+
+    private bool $addParamAttributeOnParameters = false;
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover,
@@ -103,11 +105,16 @@ CODE_SAMPLE
     /**
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    #[Param(configuration: 'AnnotationToAttribute[]')]
+    #[Param(configuration: '(AnnotationToAttribute|bool)[]')]
     public function configure(array $configuration): void
     {
-        Assert::allIsAOf($configuration, AnnotationToAttribute::class);
-        $this->annotationsToAttributes = $configuration;
+        foreach ($configuration as $key => $value) {
+            if ($value instanceof AnnotationToAttribute) {
+                $this->annotationsToAttributes[] = $value;
+            } elseif ($key == 'addParamAttributeOnParameters') {
+                $this->addParamAttributeOnParameters = $value;
+            }
+        }
     }
 
     #[Returns('array<class-string<Node>>')]
@@ -144,6 +151,35 @@ CODE_SAMPLE
         $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
         $this->attributeGroupNamedArgumentManipulator->decorate($attributeGroups);
+
+        if ($this->addParamAttributeOnParameters &&
+            ($node instanceof Stmt\ClassMethod || $node instanceof Stmt\Function_)) {
+            foreach ($attributeGroups as $attrKey => $attributeGroup) {
+                foreach ($attributeGroup->attrs as $key => $attribute) {
+                    if ((string)$attribute->name === Param::class) {
+                        $args = $attribute->args;
+                        if (isset($args[0])) {
+                            $arg = $args[0];
+                            $argName = (string)$arg->name;
+                            $parameters = $node->getParams();
+                            foreach ($parameters as $parameter) {
+                                if ($parameter->var instanceof Variable && is_string($parameter->var->name) &&
+                                    $parameter->var->name === $argName) {
+                                    unset($attributeGroup->attrs[$key]);
+                                    $arg->name = null;
+                                    $parameterAttributeGroups = [new AttributeGroup([$attribute])];
+                                    $parameter->attrGroups = array_merge($parameter->attrGroups, $parameterAttributeGroups);
+                                }
+                            }
+                        }
+                    }
+                }
+                if ($attributeGroup->attrs === []) {
+                    unset($attributeGroups[$attrKey]);
+                }
+            }
+        }
+
         $node->attrGroups = array_merge($node->attrGroups, $attributeGroups);
 
         return $node;

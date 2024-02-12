@@ -12,6 +12,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         __DIR__ . '/tests/Fixture',
+        __DIR__ . '/tests/SpecialFixture',
     ])
     ->withSets([
         PhpStaticAnalysisSetList::ANNOTATIONS_TO_ATTRIBUTES
