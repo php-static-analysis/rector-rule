@@ -21,6 +21,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('template', Template::class),
             new AnnotationToAttribute('var', Type::class),
             'addParamAttributeOnParameters' => false,
+            'useTypeAttributeForReturnAnnotation' => false,
         ]
     );
 };

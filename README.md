@@ -137,3 +137,22 @@ return RectorConfig::configure()
     );
 ```
 
+### Attribute to use for the return type of methods and functions
+
+By default `Returns` attributes are added to define the return type of methods/functions. It is possible to use the `Type` attribute instead. To activate this option, add this code to your configuration:
+
+```php
+use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+use Rector\Config\RectorConfig;
+...
+
+return RectorConfig::configure()
+    ...
+    ->withConfiguredRule(
+        AnnotationsToAttributesRector::class,
+        [
+            'useTypeAttributeForReturnAnnotation' => true,
+        ]
+    );
+```
+

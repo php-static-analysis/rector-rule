@@ -22,6 +22,16 @@ class IsReadOnlyAttributeTest
      */
     #[Type('string')]
     public $otherName;
+
+    /**
+     * @psalm-readonly
+     */
+    public $psalmName;
+
+    /**
+     * @phpstan-readonly
+     */
+    public $phpstanName;
 }
 
 ?>
@@ -46,6 +56,12 @@ class IsReadOnlyAttributeTest
     #[Type('string')]
     #[\PhpStaticAnalysis\Attributes\IsReadOnly]
     public $otherName;
+
+    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    public $psalmName;
+
+    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    public $phpstanName;
 }
 
 ?>

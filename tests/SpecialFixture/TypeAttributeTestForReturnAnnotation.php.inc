@@ -4,13 +4,10 @@ namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
 use PhpStaticAnalysis\Attributes\Param;
 
-/**
- * @template T
- */
-class TemplateAttributeTest
+class TypeAttributeTestForReturnAnnotation
 {
     /**
-     * @template T
+     * @return string
      */
     public function getName()
     {
@@ -18,16 +15,8 @@ class TemplateAttributeTest
     }
 
     /**
-     * @template T of object
-     */
-    public function getExtraName()
-    {
-        return 'John';
-    }
-
-    /**
      * @deprecated
-     * @template T
+     * @return string
      */
     public function getMoreNames()
     {
@@ -35,7 +24,7 @@ class TemplateAttributeTest
     }
 
     /**
-     * @template T
+     * @return string
      */
     #[Param(name:'string')]
     public function getAnotherName($name)
@@ -44,7 +33,7 @@ class TemplateAttributeTest
     }
 
     /**
-     * @psalm-template T
+     * @psalm-return string
      */
     public function getPsalmName()
     {
@@ -52,7 +41,7 @@ class TemplateAttributeTest
     }
 
     /**
-     * @phpstan-template T
+     * @phpstan-return string
      */
     public function getPHPStanName()
     {
@@ -61,7 +50,7 @@ class TemplateAttributeTest
 }
 
 /**
- * @template T
+ * @return string
  */
 function getName()
 {
@@ -76,17 +65,10 @@ namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
 use PhpStaticAnalysis\Attributes\Param;
 
-#[\PhpStaticAnalysis\Attributes\Template('T')]
-class TemplateAttributeTest
+class TypeAttributeTestForReturnAnnotation
 {
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
     public function getName()
-    {
-        return 'John';
-    }
-
-    #[\PhpStaticAnalysis\Attributes\Template('T', 'object')]
-    public function getExtraName()
     {
         return 'John';
     }
@@ -94,33 +76,33 @@ class TemplateAttributeTest
     /**
      * @deprecated
      */
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
     public function getMoreNames()
     {
         return 'Mike';
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
     public function getPsalmName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
     public function getPHPStanName()
     {
         return 'John';
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Template('T')]
+#[\PhpStaticAnalysis\Attributes\Type('string')]
 function getName()
 {
     return "Ann";

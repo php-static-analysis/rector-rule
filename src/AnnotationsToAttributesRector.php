@@ -42,6 +42,8 @@ final class AnnotationsToAttributesRector extends AbstractRector implements Conf
 
     private bool $addParamAttributeOnParameters = false;
 
+    private bool $useTypeAttributeForReturnAnnotation = false;
+
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover,
         private AttributeGroupNamedArgumentManipulator $attributeGroupNamedArgumentManipulator,
@@ -110,9 +112,17 @@ CODE_SAMPLE
     {
         foreach ($configuration as $key => $value) {
             if ($value instanceof AnnotationToAttribute) {
-                $this->annotationsToAttributes[] = $value;
+                $this->annotationsToAttributes[$value->getTag()] = $value;
             } elseif ($key == 'addParamAttributeOnParameters') {
                 $this->addParamAttributeOnParameters = $value;
+            } elseif ($key == 'useTypeAttributeForReturnAnnotation') {
+                $this->useTypeAttributeForReturnAnnotation = $value;
+            }
+        }
+        if ($this->useTypeAttributeForReturnAnnotation) {
+            if (isset($this->annotationsToAttributes['return'])) {
+                $this->annotationsToAttributes['return'] =
+                    new AnnotationToAttribute('return', Type::class);
             }
         }
     }
@@ -258,9 +268,15 @@ CODE_SAMPLE
     private function matchAnnotationToAttribute(
         string $tagName
     ): AnnotationToAttribute|null {
-        foreach ($this->annotationsToAttributes as $annotationToAttribute) {
-            if ($tagName == '@' . $annotationToAttribute->getTag()) {
-                return $annotationToAttribute;
+        if (str_starts_with($tagName, '@')) {
+            $tagName = substr($tagName, 1);
+            if (str_starts_with($tagName, 'psalm-')) {
+                $tagName = substr($tagName, 6);
+            } elseif (str_starts_with($tagName, 'phpstan-')) {
+                $tagName = substr($tagName, 8);
+            }
+            if (isset($this->annotationsToAttributes[$tagName])) {
+                return $this->annotationsToAttributes[$tagName];
             }
         }
 

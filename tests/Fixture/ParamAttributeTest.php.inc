@@ -50,6 +50,22 @@ class ParamAttributeTest
     {
         return $name1 . $name2;
     }
+
+    /**
+     * @psalm-param string $name
+     */
+    public function getPsalmName($name)
+    {
+        return $name;
+    }
+
+    /**
+     * @phpstan-param string $name
+     */
+    public function getPHPStanName($name)
+    {
+        return $name;
+    }
 }
 
 /**
@@ -105,6 +121,18 @@ class ParamAttributeTest
     public function getTwoMoreNames($name1, $name2)
     {
         return $name1 . $name2;
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    public function getPsalmName($name)
+    {
+        return $name;
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    public function getPHPStanName($name)
+    {
+        return $name;
     }
 }
 

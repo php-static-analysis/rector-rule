@@ -22,6 +22,16 @@ class TypeAttributeTest
      */
     #[IsReadOnly]
     public $otherName;
+
+    /**
+     * @psalm-var string
+     */
+    public $psalmName;
+
+    /**
+     * @phpstan-var string
+     */
+    public $phpstanName;
 }
 
 ?>
@@ -46,6 +56,12 @@ class TypeAttributeTest
     #[IsReadOnly]
     #[\PhpStaticAnalysis\Attributes\Type('string')]
     public $otherName;
+
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    public $psalmName;
+
+    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    public $phpstanName;
 }
 
 ?>

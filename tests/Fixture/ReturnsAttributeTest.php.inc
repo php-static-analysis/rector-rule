@@ -31,6 +31,22 @@ class ReturnsAttributeTest
     {
         return "Hello " . $name;
     }
+
+    /**
+     * @psalm-return string
+     */
+    public function getPsalmName()
+    {
+        return 'John';
+    }
+
+    /**
+     * @phpstan-return string
+     */
+    public function getPHPStanName()
+    {
+        return 'John';
+    }
 }
 
 /**
@@ -71,6 +87,18 @@ class ReturnsAttributeTest
     public function getAnotherName($name)
     {
         return "Hello " . $name;
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    public function getPsalmName()
+    {
+        return 'John';
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    public function getPHPStanName()
+    {
+        return 'John';
     }
 }
 
