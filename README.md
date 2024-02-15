@@ -156,3 +156,22 @@ return RectorConfig::configure()
     );
 ```
 
+### Attribute to use for the type of class properties
+
+By default `Type` attributes are added to define the type of class properties. It is possible to use the `Property` attribute instead. To activate this option, add this code to your configuration:
+
+```php
+use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+use Rector\Config\RectorConfig;
+...
+
+return RectorConfig::configure()
+    ...
+    ->withConfiguredRule(
+        AnnotationsToAttributesRector::class,
+        [
+            'usePropertyAttributeForVarAnnotation' => true,
+        ]
+    );
+```
+

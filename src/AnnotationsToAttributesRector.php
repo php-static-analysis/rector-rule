@@ -14,11 +14,13 @@ use PhpParser\Node\Stmt;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PhpStaticAnalysis\Attributes\Param;
+use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Returns;
 use PhpStaticAnalysis\Attributes\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -43,6 +45,8 @@ final class AnnotationsToAttributesRector extends AbstractRector implements Conf
     private bool $addParamAttributeOnParameters = false;
 
     private bool $useTypeAttributeForReturnAnnotation = false;
+
+    private bool $usePropertyAttributeForVarAnnotation = false;
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover,
@@ -117,12 +121,20 @@ CODE_SAMPLE
                 $this->addParamAttributeOnParameters = $value;
             } elseif ($key == 'useTypeAttributeForReturnAnnotation') {
                 $this->useTypeAttributeForReturnAnnotation = $value;
+            } elseif ($key == 'usePropertyAttributeForVarAnnotation') {
+                $this->usePropertyAttributeForVarAnnotation = $value;
             }
         }
         if ($this->useTypeAttributeForReturnAnnotation) {
             if (isset($this->annotationsToAttributes['return'])) {
                 $this->annotationsToAttributes['return'] =
                     new AnnotationToAttribute('return', Type::class);
+            }
+        }
+        if ($this->usePropertyAttributeForVarAnnotation) {
+            if (isset($this->annotationsToAttributes['var'])) {
+                $this->annotationsToAttributes['var'] =
+                    new AnnotationToAttribute('var', Property::class);
             }
         }
     }
@@ -217,6 +229,14 @@ CODE_SAMPLE
                         new Node\Arg(
                             value: new Scalar\String_((string)($tagValueNode->type)),
                             name: new Node\Identifier(substr($tagValueNode->parameterName, 1))
+                        )
+                    ];
+                    break;
+                case $tagValueNode instanceof PropertyTagValueNode:
+                    $args = [
+                        new Node\Arg(
+                            value: new Scalar\String_((string)($tagValueNode->type)),
+                            name: new Node\Identifier(substr($tagValueNode->propertyName, 1))
                         )
                     ];
                     break;
