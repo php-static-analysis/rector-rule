@@ -116,7 +116,8 @@ CODE_SAMPLE
     {
         foreach ($configuration as $key => $value) {
             if ($value instanceof AnnotationToAttribute) {
-                $this->annotationsToAttributes[$value->getTag()] = $value;
+                $tag = str_replace('_', '-', $value->getTag());
+                $this->annotationsToAttributes[$tag] = $value;
             } elseif ($key == 'addParamAttributeOnParameters') {
                 $this->addParamAttributeOnParameters = $value;
             } elseif ($key == 'useTypeAttributeForReturnAnnotation') {

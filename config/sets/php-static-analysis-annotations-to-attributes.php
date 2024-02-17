@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use PhpStaticAnalysis\Attributes\PropertyRead;
+use PhpStaticAnalysis\Attributes\PropertyWrite;
 use Rector\Config\RectorConfig;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use PhpStaticAnalysis\Attributes\IsReadOnly;
@@ -18,6 +20,8 @@ return static function (RectorConfig $rectorConfig): void {
         [
             new AnnotationToAttribute('param', Param::class),
             new AnnotationToAttribute('property', Property::class),
+            new AnnotationToAttribute('property_read', PropertyRead::class),
+            new AnnotationToAttribute('property_write', PropertyWrite::class),
             new AnnotationToAttribute('readonly', IsReadOnly::class),
             new AnnotationToAttribute('return', Returns::class),
             new AnnotationToAttribute('template', Template::class),

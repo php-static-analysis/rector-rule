@@ -110,13 +110,16 @@ return RectorConfig::configure()
 
 These are the available attributes and their corresponding PHPDoc annotations:
 
-| Attribute                                                                                   | PHPDoc Annotation |
-|---------------------------------------------------------------------------------------------|-------------------|
-| [IsReadOnly](https://github.com/php-static-analysis/attributes/blob/main/doc/IsReadOnly.md) | `@readonly`       |
-| [Param](https://github.com/php-static-analysis/attributes/blob/main/doc/Param.md)           | `@param`          |
-| [Returns](https://github.com/php-static-analysis/attributes/blob/main/doc/Returns.md)       | `@return`         |
-| [Template](https://github.com/php-static-analysis/attributes/blob/main/doc/Template.md)     | `@template`       |
-| [Type](https://github.com/php-static-analysis/attributes/blob/main/doc/Type.md)             | `@var`            |
+| Attribute                                                                                         | PHPDoc Annotations |
+|---------------------------------------------------------------------------------------------------|--------------------|
+| [IsReadOnly](https://github.com/php-static-analysis/attributes/blob/main/doc/IsReadOnly.md)       | `@readonly`        |
+| [Param](https://github.com/php-static-analysis/attributes/blob/main/doc/Param.md)                 | `@param`           |
+| [Property](https://github.com/php-static-analysis/attributes/blob/main/doc/Property.md)           | `@property` `@var` |
+| [PropertyRead](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyRead.md)   | `@property-read`   |
+| [PropertyWrite](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyWrite.md) | `@property-write`  |
+| [Returns](https://github.com/php-static-analysis/attributes/blob/main/doc/Returns.md)             | `@return`          |
+| [Template](https://github.com/php-static-analysis/attributes/blob/main/doc/Template.md)           | `@template`        |
+| [Type](https://github.com/php-static-analysis/attributes/blob/main/doc/Type.md)                   | `@var` `@return`   |
 
 ### Location of Param attributes
 
