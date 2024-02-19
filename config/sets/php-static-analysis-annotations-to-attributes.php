@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use PhpStaticAnalysis\Attributes\PropertyRead;
 use PhpStaticAnalysis\Attributes\PropertyWrite;
+use PhpStaticAnalysis\Attributes\TemplateContravariant;
+use PhpStaticAnalysis\Attributes\TemplateCovariant;
 use Rector\Config\RectorConfig;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use PhpStaticAnalysis\Attributes\IsReadOnly;
@@ -25,6 +27,8 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('readonly', IsReadOnly::class),
             new AnnotationToAttribute('return', Returns::class),
             new AnnotationToAttribute('template', Template::class),
+            new AnnotationToAttribute('template_contravariant', TemplateContravariant::class),
+            new AnnotationToAttribute('template_covariant', TemplateCovariant::class),
             new AnnotationToAttribute('var', Type::class),
             'addParamAttributeOnParameters' => false,
             'useTypeAttributeForReturnAnnotation' => false,
