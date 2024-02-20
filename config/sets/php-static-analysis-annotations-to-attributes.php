@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PhpStaticAnalysis\Attributes\Method;
 use PhpStaticAnalysis\Attributes\PropertyRead;
 use PhpStaticAnalysis\Attributes\PropertyWrite;
 use PhpStaticAnalysis\Attributes\TemplateContravariant;
@@ -21,6 +22,7 @@ return static function (RectorConfig $rectorConfig): void {
         AnnotationsToAttributesRector::class,
         [
             new AnnotationToAttribute('param', Param::class),
+            new AnnotationToAttribute('method', Method::class),
             new AnnotationToAttribute('property', Property::class),
             new AnnotationToAttribute('property_read', PropertyRead::class),
             new AnnotationToAttribute('property_write', PropertyWrite::class),

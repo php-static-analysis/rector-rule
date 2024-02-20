@@ -12,6 +12,7 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
@@ -225,6 +226,11 @@ CODE_SAMPLE
 
             $tagValueNode = $phpDocChildNode->value;
             switch (true) {
+                case $tagValueNode instanceof MethodTagValueNode:
+                    $args = [
+                        new Node\Arg(new Scalar\String_((string)($tagValueNode)))
+                    ];
+                    break;
                 case $tagValueNode instanceof ParamTagValueNode:
                     $args = [
                         new Node\Arg(
