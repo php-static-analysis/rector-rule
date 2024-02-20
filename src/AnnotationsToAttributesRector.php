@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpStaticAnalysis\RectorRule;
 
+use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
@@ -29,6 +30,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php80\NodeManipulator\AttributeGroupNamedArgumentManipulator;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use Rector\Rector\AbstractRector;
@@ -225,10 +227,16 @@ CODE_SAMPLE
             }
 
             $tagValueNode = $phpDocChildNode->value;
+            $attributeComment = null;
             switch (true) {
                 case $tagValueNode instanceof MethodTagValueNode:
+                    $methodSignature = (string)($tagValueNode);
+                    $attributeComment = $tagValueNode->description;
+                    if ($attributeComment) {
+                        $methodSignature = substr($methodSignature, 0, -(strlen($attributeComment) + 1));
+                    }
                     $args = [
-                        new Node\Arg(new Scalar\String_((string)($tagValueNode)))
+                        new Node\Arg(new Scalar\String_($methodSignature))
                     ];
                     break;
                 case $tagValueNode instanceof ParamTagValueNode:
@@ -238,6 +246,7 @@ CODE_SAMPLE
                             name: new Node\Identifier(substr($tagValueNode->parameterName, 1))
                         )
                     ];
+                    $attributeComment = $tagValueNode->description;
                     break;
                 case $tagValueNode instanceof PropertyTagValueNode:
                     $args = [
@@ -246,12 +255,14 @@ CODE_SAMPLE
                             name: new Node\Identifier(substr($tagValueNode->propertyName, 1))
                         )
                     ];
+                    $attributeComment = $tagValueNode->description;
                     break;
                 case $tagValueNode instanceof ReturnTagValueNode:
                 case $tagValueNode instanceof VarTagValueNode:
                     $args = [
                         new Node\Arg(new Scalar\String_((string)($tagValueNode->type)))
                     ];
+                    $attributeComment = $tagValueNode->description;
                     break;
                 case $tagValueNode instanceof TemplateTagValueNode:
                     $args = [
@@ -260,9 +271,11 @@ CODE_SAMPLE
                     if ($tagValueNode->bound instanceof IdentifierTypeNode) {
                         $args[] = new Node\Arg(new Scalar\String_($tagValueNode->bound->name));
                     }
+                    $attributeComment = $tagValueNode->description;
                     break;
                 case $tagValueNode instanceof GenericTagValueNode:
                     $args = [];
+                    $attributeComment = (string)$tagValueNode;
                     break;
                 default:
                     continue 2;
@@ -277,7 +290,11 @@ CODE_SAMPLE
 
             $attributeName = new FullyQualified($annotationToAttribute->getAttributeClass());
             $attribute = new Attribute($attributeName, $args);
-            $attributeGroups[] = new AttributeGroup([$attribute]);
+            $attributeGroup = new AttributeGroup([$attribute]);
+            if ($attributeComment && defined('Rector\NodeTypeResolver\Node\AttributeKey::ATTRIBUTE_COMMENT')) {
+                $attributeGroup->setAttribute(AttributeKey::ATTRIBUTE_COMMENT, $attributeComment);
+            }
+            $attributeGroups[] = $attributeGroup;
         }
 
         foreach ($tagValueNodes as $tagValueNode) {

@@ -24,6 +24,16 @@ class TypeAttributeTest
     public $otherName;
 
     /**
+     * @var string this is the name of the user
+     */
+    public $userName;
+
+    /**
+     * @var string $otherUserName this is also the name of the user
+     */
+    public $otherUserName;
+
+    /**
      * @psalm-var string
      */
     public $psalmName;
@@ -56,6 +66,12 @@ class TypeAttributeTest
     #[IsReadOnly]
     #[\PhpStaticAnalysis\Attributes\Type('string')]
     public $otherName;
+
+    #[\PhpStaticAnalysis\Attributes\Type('string')] // this is the name of the user
+    public $userName;
+
+    #[\PhpStaticAnalysis\Attributes\Type('string')] // this is also the name of the user
+    public $otherUserName;
 
     #[\PhpStaticAnalysis\Attributes\Type('string')]
     public $psalmName;

@@ -52,6 +52,14 @@ class ParamAttributeTest
     }
 
     /**
+     * @param string $name the name of the user
+     */
+    public function getUserName($name)
+    {
+        return $name;
+    }
+
+    /**
      * @psalm-param string $name
      */
     public function getPsalmName($name)
@@ -121,6 +129,12 @@ class ParamAttributeTest
     public function getTwoMoreNames($name1, $name2)
     {
         return $name1 . $name2;
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')] // the name of the user
+    public function getUserName($name)
+    {
+        return $name;
     }
 
     #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]

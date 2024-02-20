@@ -44,6 +44,22 @@ class TemplateAttributeTest
     }
 
     /**
+     * @template T the type of object
+     */
+    public function getUserName()
+    {
+        return 'John';
+    }
+
+    /**
+     * @template T of object the type of object
+     */
+    public function getAnotherUserName()
+    {
+        return 'John';
+    }
+
+    /**
      * @psalm-template T
      */
     public function getPsalmName()
@@ -105,6 +121,18 @@ class TemplateAttributeTest
     public function getAnotherName($name)
     {
         return "Hello " . $name;
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Template('T')] // the type of object
+    public function getUserName()
+    {
+        return 'John';
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Template('T', 'object')] // the type of object
+    public function getAnotherUserName()
+    {
+        return 'John';
     }
 
     #[\PhpStaticAnalysis\Attributes\Template('T')]

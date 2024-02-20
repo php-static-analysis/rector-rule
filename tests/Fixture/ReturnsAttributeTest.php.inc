@@ -33,6 +33,14 @@ class ReturnsAttributeTest
     }
 
     /**
+     * @return string the name of the user
+     */
+    public function getUserName()
+    {
+        return 'John';
+    }
+
+    /**
      * @psalm-return string
      */
     public function getPsalmName()
@@ -87,6 +95,12 @@ class ReturnsAttributeTest
     public function getAnotherName($name)
     {
         return "Hello " . $name;
+    }
+
+    #[\PhpStaticAnalysis\Attributes\Returns('string')] // the name of the user
+    public function getUserName()
+    {
+        return 'John';
     }
 
     #[\PhpStaticAnalysis\Attributes\Returns('string')]

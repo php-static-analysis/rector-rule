@@ -24,6 +24,11 @@ class IsReadOnlyAttributeTest
     public $otherName;
 
     /**
+     * @readonly please do not write here
+     */
+    public $nameWithComment;
+
+    /**
      * @psalm-readonly
      */
     public $psalmName;
@@ -56,6 +61,9 @@ class IsReadOnlyAttributeTest
     #[Type('string')]
     #[\PhpStaticAnalysis\Attributes\IsReadOnly]
     public $otherName;
+
+    #[\PhpStaticAnalysis\Attributes\IsReadOnly] // please do not write here
+    public $nameWithComment;
 
     #[\PhpStaticAnalysis\Attributes\IsReadOnly]
     public $psalmName;
