@@ -12,7 +12,7 @@ class IsReadOnlyAttributeTest
     public $name;
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @readonly
      */
     public $anotherName;
@@ -53,7 +53,7 @@ class IsReadOnlyAttributeTest
     public $name;
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     #[\PhpStaticAnalysis\Attributes\IsReadOnly]
     public $anotherName;

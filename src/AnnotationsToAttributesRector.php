@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpStaticAnalysis\RectorRule;
 
-use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
@@ -12,6 +11,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
+use PHPStan\PhpDocParser\Ast\PhpDoc\DeprecatedTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -273,6 +273,7 @@ CODE_SAMPLE
                     }
                     $attributeComment = $tagValueNode->description;
                     break;
+                case $tagValueNode instanceof DeprecatedTagValueNode:
                 case $tagValueNode instanceof GenericTagValueNode:
                     $args = [];
                     $attributeComment = (string)$tagValueNode;

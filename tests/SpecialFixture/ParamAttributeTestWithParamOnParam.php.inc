@@ -16,7 +16,7 @@ class ParamAttributeTestWithParamOnParam
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @param string $name
      */
     public function getMoreNames($name)
@@ -94,7 +94,7 @@ class ParamAttributeTestWithParamOnParam
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getMoreNames(#[\PhpStaticAnalysis\Attributes\Param('string')]
     $name)

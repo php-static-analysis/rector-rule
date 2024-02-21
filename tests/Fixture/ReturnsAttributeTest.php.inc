@@ -15,7 +15,7 @@ class ReturnsAttributeTest
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @return string
      */
     public function getMoreNames()
@@ -82,7 +82,7 @@ class ReturnsAttributeTest
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     #[\PhpStaticAnalysis\Attributes\Returns('string')]
     public function getMoreNames()

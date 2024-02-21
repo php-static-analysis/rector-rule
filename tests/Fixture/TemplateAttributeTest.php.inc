@@ -26,7 +26,7 @@ class TemplateAttributeTest
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @template T
      */
     public function getMoreNames()
@@ -108,7 +108,7 @@ class TemplateAttributeTest
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     #[\PhpStaticAnalysis\Attributes\Template('T')]
     public function getMoreNames()

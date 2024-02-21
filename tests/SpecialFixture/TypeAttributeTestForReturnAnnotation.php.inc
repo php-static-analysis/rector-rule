@@ -15,7 +15,7 @@ class TypeAttributeTestForReturnAnnotation
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @return string
      */
     public function getMoreNames()
@@ -74,7 +74,7 @@ class TypeAttributeTestForReturnAnnotation
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     #[\PhpStaticAnalysis\Attributes\Type('string')]
     public function getMoreNames()

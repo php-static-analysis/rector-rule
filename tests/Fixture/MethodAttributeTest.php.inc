@@ -5,7 +5,7 @@ namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  * @method string getString()
  * @method string getName() used to get the name
  * @psalm-method void setString(string $text)
@@ -25,7 +25,7 @@ namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  */
 #[Template('T')]
 #[\PhpStaticAnalysis\Attributes\Method('string getString()')]

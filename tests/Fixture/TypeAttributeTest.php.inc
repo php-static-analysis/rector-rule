@@ -12,7 +12,7 @@ class TypeAttributeTest
     public $name;
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @var string
      */
     public $anotherName;
@@ -58,7 +58,7 @@ class TypeAttributeTest
     public $name;
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     #[\PhpStaticAnalysis\Attributes\Type('string')]
     public $anotherName;

@@ -6,7 +6,7 @@ use Exception;
 use PhpStaticAnalysis\Attributes\Property;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  * @template-covariant T1
  * @template-covariant T2 of Exception
  * @template-covariant T3 this is covariant
@@ -29,7 +29,7 @@ use Exception;
 use PhpStaticAnalysis\Attributes\Property;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  */
 #[Property(name:'string')]
 #[\PhpStaticAnalysis\Attributes\TemplateCovariant('T1')]

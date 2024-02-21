@@ -6,7 +6,7 @@ use Exception;
 use PhpStaticAnalysis\Attributes\Property;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  * @template-contravariant T1
  * @template-contravariant T2 of Exception
  * @template-contravariant T3 this is contravariant
@@ -28,7 +28,7 @@ use Exception;
 use PhpStaticAnalysis\Attributes\Property;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  */
 #[Property(name:'string')]
 #[\PhpStaticAnalysis\Attributes\TemplateContravariant('T1')]

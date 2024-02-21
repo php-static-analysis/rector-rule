@@ -5,7 +5,7 @@ namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  * @property string $name
  * @property string $userName the name of the user
  * @psalm-property int $num
@@ -25,7 +25,7 @@ namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
- * @deprecated
+ * @codeCoverageIgnore
  */
 #[Template('T')]
 #[\PhpStaticAnalysis\Attributes\Property(name: 'string')]

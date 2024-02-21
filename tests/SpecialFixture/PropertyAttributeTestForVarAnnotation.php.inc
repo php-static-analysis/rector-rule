@@ -12,7 +12,7 @@ class PropertyAttributeTestForVarAnnotation
     public $name;
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      * @var string
      */
     public $anotherName;
@@ -48,7 +48,7 @@ class PropertyAttributeTestForVarAnnotation
     public $name;
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
     #[\PhpStaticAnalysis\Attributes\Property('string')]
     public $anotherName;
