@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt;
 use PHPStan\PhpDocParser\Ast\PhpDoc\DeprecatedTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
@@ -257,6 +258,7 @@ CODE_SAMPLE
                     ];
                     $attributeComment = $tagValueNode->description;
                     break;
+                case $tagValueNode instanceof MixinTagValueNode:
                 case $tagValueNode instanceof ReturnTagValueNode:
                 case $tagValueNode instanceof VarTagValueNode:
                     $args = [

@@ -116,6 +116,7 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | [Internal](https://github.com/php-static-analysis/attributes/blob/main/doc/Internal.md)                           | `@internal`               |
 | [IsReadOnly](https://github.com/php-static-analysis/attributes/blob/main/doc/IsReadOnly.md)       | `@readonly`        |
 | [Method](https://github.com/php-static-analysis/attributes/blob/main/doc/Method.md)                               | `@method`                 |
+| [Mixin](https://github.com/php-static-analysis/attributes/blob/main/doc/Mixin.md)                                 | `@mixin`                  |
 | [Param](https://github.com/php-static-analysis/attributes/blob/main/doc/Param.md)                 | `@param`           |
 | [Property](https://github.com/php-static-analysis/attributes/blob/main/doc/Property.md)           | `@property` `@var` |
 | [PropertyRead](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyRead.md)   | `@property-read`   |
