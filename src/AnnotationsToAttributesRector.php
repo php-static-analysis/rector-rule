@@ -227,7 +227,7 @@ CODE_SAMPLE
             }
 
             $tagValueNode = $phpDocChildNode->value;
-            $attributeComment = null;
+            $attributeComment = '';
             switch (true) {
                 case $tagValueNode instanceof MethodTagValueNode:
                     $methodSignature = (string)($tagValueNode);
@@ -276,7 +276,17 @@ CODE_SAMPLE
                 case $tagValueNode instanceof DeprecatedTagValueNode:
                 case $tagValueNode instanceof GenericTagValueNode:
                     $args = [];
-                    $attributeComment = (string)$tagValueNode;
+                    if ($phpDocChildNode->name === '@psalm-internal') {
+                        $remainingText = (string)$tagValueNode;
+                        $parts = explode(' ', $remainingText);
+                        $namespace = array_shift($parts);
+                        if ($namespace) {
+                            $args[] = new Node\Arg(new Scalar\String_($namespace));
+                            $attributeComment = implode(' ', $parts);
+                        }
+                    } else {
+                        $attributeComment = (string)$tagValueNode;
+                    }
                     break;
                 default:
                     continue 2;

@@ -113,6 +113,7 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | Attribute                                                                                         | PHPDoc Annotations |
 |---------------------------------------------------------------------------------------------------|--------------------|
 | [Deprecated](https://github.com/php-static-analysis/attributes/blob/main/doc/Deprecated.md)                       | `@deprecated`             |
+| [Internal](https://github.com/php-static-analysis/attributes/blob/main/doc/Internal.md)                           | `@internal`               |
 | [IsReadOnly](https://github.com/php-static-analysis/attributes/blob/main/doc/IsReadOnly.md)       | `@readonly`        |
 | [Method](https://github.com/php-static-analysis/attributes/blob/main/doc/Method.md)                               | `@method`                 |
 | [Param](https://github.com/php-static-analysis/attributes/blob/main/doc/Param.md)                 | `@param`           |
