@@ -10,6 +10,9 @@ use PhpStaticAnalysis\Attributes\PropertyRead;
 use PhpStaticAnalysis\Attributes\PropertyWrite;
 use PhpStaticAnalysis\Attributes\TemplateContravariant;
 use PhpStaticAnalysis\Attributes\TemplateCovariant;
+use PhpStaticAnalysis\Attributes\TemplateExtends;
+use PhpStaticAnalysis\Attributes\TemplateImplements;
+use PhpStaticAnalysis\Attributes\TemplateUse;
 use Rector\Config\RectorConfig;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use PhpStaticAnalysis\Attributes\IsReadOnly;
@@ -25,6 +28,8 @@ return static function (RectorConfig $rectorConfig): void {
         AnnotationsToAttributesRector::class,
         [
             new AnnotationToAttribute('deprecated', Deprecated::class),
+            new AnnotationToAttribute('extends', TemplateExtends::class),
+            new AnnotationToAttribute('implements', TemplateImplements::class),
             new AnnotationToAttribute('internal', Internal::class),
             new AnnotationToAttribute('method', Method::class),
             new AnnotationToAttribute('mixin', Mixin::class),
@@ -37,6 +42,10 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('template', Template::class),
             new AnnotationToAttribute('template_contravariant', TemplateContravariant::class),
             new AnnotationToAttribute('template_covariant', TemplateCovariant::class),
+            new AnnotationToAttribute('template_extends', TemplateExtends::class),
+            new AnnotationToAttribute('template_implements', TemplateImplements::class),
+            new AnnotationToAttribute('template_use', TemplateUse::class),
+            new AnnotationToAttribute('use', TemplateUse::class),
             new AnnotationToAttribute('var', Type::class),
             'addParamAttributeOnParameters' => false,
             'useTypeAttributeForReturnAnnotation' => false,

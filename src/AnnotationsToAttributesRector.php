@@ -12,7 +12,9 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
 use PHPStan\PhpDocParser\Ast\PhpDoc\DeprecatedTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ExtendsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ImplementsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -20,6 +22,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PhpStaticAnalysis\Attributes\Param;
@@ -165,19 +168,17 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
-        if (!$phpDocInfo instanceof PhpDocInfo) {
-            return null;
+
+        $attributeGroups = [];
+        if ($phpDocInfo instanceof PhpDocInfo) {
+            $attributeGroups = $this->processAnnotations($phpDocInfo);
         }
 
-        $attributeGroups = $this->processAnnotations($phpDocInfo);
+        if ($attributeGroups !== []) {
+            $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
-        if ($attributeGroups === []) {
-            return null;
+            $this->attributeGroupNamedArgumentManipulator->decorate($attributeGroups);
         }
-
-        $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
-
-        $this->attributeGroupNamedArgumentManipulator->decorate($attributeGroups);
 
         if ($this->addParamAttributeOnParameters &&
             ($node instanceof Stmt\ClassMethod || $node instanceof Stmt\Function_)) {
@@ -207,7 +208,27 @@ CODE_SAMPLE
             }
         }
 
-        $node->attrGroups = array_merge($node->attrGroups, $attributeGroups);
+        if ($node instanceof Stmt\Class_) {
+            foreach ($node->stmts as $stmt) {
+                if ($stmt instanceof Stmt\TraitUse) {
+                    $phpDocInfo = $this->phpDocInfoFactory->createFromNode($stmt);
+                    if ($phpDocInfo instanceof PhpDocInfo) {
+                        $useAttributeGroups = $this->processAnnotations($phpDocInfo);
+
+                        if ($useAttributeGroups !== []) {
+                            $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($stmt);
+
+                            $this->attributeGroupNamedArgumentManipulator->decorate($useAttributeGroups);
+                            $attributeGroups = array_merge($attributeGroups, $useAttributeGroups);
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($attributeGroups !== []) {
+            $node->attrGroups = array_merge($node->attrGroups, $attributeGroups);
+        }
 
         return $node;
     }
@@ -258,8 +279,11 @@ CODE_SAMPLE
                     ];
                     $attributeComment = $tagValueNode->description;
                     break;
+                case $tagValueNode instanceof ExtendsTagValueNode:
+                case $tagValueNode instanceof ImplementsTagValueNode:
                 case $tagValueNode instanceof MixinTagValueNode:
                 case $tagValueNode instanceof ReturnTagValueNode:
+                case $tagValueNode instanceof UsesTagValueNode:
                 case $tagValueNode instanceof VarTagValueNode:
                     $args = [
                         new Node\Arg(new Scalar\String_((string)($tagValueNode->type)))

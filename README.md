@@ -125,6 +125,9 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | [Template](https://github.com/php-static-analysis/attributes/blob/main/doc/Template.md)           | `@template`        |
 | [TemplateContravariant](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateContravariant.md) | `@template-contravariant` |
 | [TemplateCovariant](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateCovariant.md)         | `@template-covariant`     |
+| [TemplateExtends](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateExtends.md)             | `@extends` `@template-extends` |
+| [TemplateImplements](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateImplements.md)             | `@implements` `@template-implements` |
+| [TemplateUse](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateUse.md)             | `@use` `@template-use` |
 | [Type](https://github.com/php-static-analysis/attributes/blob/main/doc/Type.md)                   | `@var` `@return`   |
 
 ### Location of Param attributes
