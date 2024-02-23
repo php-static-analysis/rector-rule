@@ -118,6 +118,7 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | [Method](https://github.com/php-static-analysis/attributes/blob/main/doc/Method.md)                               | `@method`                 |
 | [Mixin](https://github.com/php-static-analysis/attributes/blob/main/doc/Mixin.md)                                 | `@mixin`                  |
 | [Param](https://github.com/php-static-analysis/attributes/blob/main/doc/Param.md)                 | `@param`           |
+| [ParamOut](https://github.com/php-static-analysis/attributes/blob/main/doc/ParamOut.md)                           | `@param-out`                         |
 | [Property](https://github.com/php-static-analysis/attributes/blob/main/doc/Property.md)           | `@property` `@var` |
 | [PropertyRead](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyRead.md)   | `@property-read`   |
 | [PropertyWrite](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyWrite.md) | `@property-write`  |
@@ -130,9 +131,9 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | [TemplateUse](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateUse.md)             | `@use` `@template-use` |
 | [Type](https://github.com/php-static-analysis/attributes/blob/main/doc/Type.md)                   | `@var` `@return`   |
 
-### Location of Param attributes
+### Location of Param and ParamOut attributes
 
-By default `Param` attributes are added on the method/function where the `@param` annotation was located. It is possible to instead add them on the corresponding parameter in the function. To activate this option, add this code to your configuration:
+By default `Param` and `ParamOut `attributes are added on the method/function where the `@param` or `@param-out` annotation was located. It is possible to instead add them on the corresponding parameter in the function. To activate this option, add this code to your configuration:
 
 ```php
 use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;

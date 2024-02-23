@@ -20,6 +20,7 @@ final class AnnotationsToAttributesWithParamOnParamRectorTest extends AbstractRe
     public static function provideData(): Iterator
     {
         yield [__DIR__ . '/SpecialFixture/ParamAttributeTestWithParamOnParam.php.inc'];
+        yield [__DIR__ . '/SpecialFixture/ParamOutAttributeTestWithParamOnParam.php.inc'];
     }
 
     public function provideConfigFilePath(): string

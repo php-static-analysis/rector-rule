@@ -17,6 +17,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ImplementsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamOutTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
@@ -26,6 +27,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PhpStaticAnalysis\Attributes\Param;
+use PhpStaticAnalysis\Attributes\ParamOut;
 use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Returns;
 use PhpStaticAnalysis\Attributes\Type;
@@ -184,7 +186,8 @@ CODE_SAMPLE
             ($node instanceof Stmt\ClassMethod || $node instanceof Stmt\Function_)) {
             foreach ($attributeGroups as $attrKey => $attributeGroup) {
                 foreach ($attributeGroup->attrs as $key => $attribute) {
-                    if ((string)$attribute->name === Param::class) {
+                    $attributeName = (string)$attribute->name;
+                    if ($attributeName === Param::class || $attributeName == ParamOut::class) {
                         $args = $attribute->args;
                         if (isset($args[0])) {
                             $arg = $args[0];
@@ -261,6 +264,7 @@ CODE_SAMPLE
                         new Node\Arg(new Scalar\String_($methodSignature))
                     ];
                     break;
+                case $tagValueNode instanceof ParamOutTagValueNode:
                 case $tagValueNode instanceof ParamTagValueNode:
                     $args = [
                         new Node\Arg(
