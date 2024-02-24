@@ -22,6 +22,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\SelfOutTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
@@ -287,6 +288,7 @@ CODE_SAMPLE
                 case $tagValueNode instanceof ImplementsTagValueNode:
                 case $tagValueNode instanceof MixinTagValueNode:
                 case $tagValueNode instanceof ReturnTagValueNode:
+                case $tagValueNode instanceof SelfOutTagValueNode:
                 case $tagValueNode instanceof UsesTagValueNode:
                 case $tagValueNode instanceof VarTagValueNode:
                     $args = [

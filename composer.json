@@ -28,7 +28,7 @@
     "require": {
         "php": ">=8.0",
         "cweagans/composer-patches": "^1.7",
-        "php-static-analysis/attributes": "^0.1.12 || dev-main",
+        "php-static-analysis/attributes": "^0.1.13 || dev-main",
         "rector/rector": "^0.19 || ^1.0"
     },
     "require-dev": {
