@@ -122,6 +122,8 @@ These are the available attributes and their corresponding PHPDoc annotations:
 | [Property](https://github.com/php-static-analysis/attributes/blob/main/doc/Property.md)                           | `@property` `@var` |
 | [PropertyRead](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyRead.md)                   | `@property-read`   |
 | [PropertyWrite](https://github.com/php-static-analysis/attributes/blob/main/doc/PropertyWrite.md)                 | `@property-write`  |
+| [RequireExtends](https://github.com/php-static-analysis/attributes/blob/main/doc/RequireExtends.md)        | `@require-extends`                   |
+| [RequireImplements](https://github.com/php-static-analysis/attributes/blob/main/doc/RequireImplements.md)            | `@require-implements`                |
 | [Returns](https://github.com/php-static-analysis/attributes/blob/main/doc/Returns.md)                             | `@return`          |
 | [SelfOutAttributeTest.php](..%2Fphpstan-extension%2Ftests%2FSelfOutAttributeTest.php)                             | [Template](https://github.com/php-static-analysis/attributes/blob/main/doc/Template.md)           | `@template`        |
 | [TemplateContravariant](https://github.com/php-static-analysis/attributes/blob/main/doc/TemplateContravariant.md) | `@template-contravariant` |

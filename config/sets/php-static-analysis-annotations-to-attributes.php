@@ -9,6 +9,8 @@ use PhpStaticAnalysis\Attributes\Mixin;
 use PhpStaticAnalysis\Attributes\ParamOut;
 use PhpStaticAnalysis\Attributes\PropertyRead;
 use PhpStaticAnalysis\Attributes\PropertyWrite;
+use PhpStaticAnalysis\Attributes\RequireExtends;
+use PhpStaticAnalysis\Attributes\RequireImplements;
 use PhpStaticAnalysis\Attributes\SelfOut;
 use PhpStaticAnalysis\Attributes\TemplateContravariant;
 use PhpStaticAnalysis\Attributes\TemplateCovariant;
@@ -41,6 +43,8 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('property_read', PropertyRead::class),
             new AnnotationToAttribute('property_write', PropertyWrite::class),
             new AnnotationToAttribute('readonly', IsReadOnly::class),
+            new AnnotationToAttribute('require_extends', RequireExtends::class),
+            new AnnotationToAttribute('require_implements', RequireImplements::class),
             new AnnotationToAttribute('return', Returns::class),
             new AnnotationToAttribute('self_out', SelfOut::class),
             new AnnotationToAttribute('template', Template::class),
