@@ -3,12 +3,14 @@
 declare(strict_types=1);
 
 use PhpStaticAnalysis\Attributes\Deprecated;
+use PhpStaticAnalysis\Attributes\Impure;
 use PhpStaticAnalysis\Attributes\Internal;
 use PhpStaticAnalysis\Attributes\Method;
 use PhpStaticAnalysis\Attributes\Mixin;
 use PhpStaticAnalysis\Attributes\ParamOut;
 use PhpStaticAnalysis\Attributes\PropertyRead;
 use PhpStaticAnalysis\Attributes\PropertyWrite;
+use PhpStaticAnalysis\Attributes\Pure;
 use PhpStaticAnalysis\Attributes\RequireExtends;
 use PhpStaticAnalysis\Attributes\RequireImplements;
 use PhpStaticAnalysis\Attributes\SelfOut;
@@ -33,6 +35,7 @@ return static function (RectorConfig $rectorConfig): void {
         [
             new AnnotationToAttribute('deprecated', Deprecated::class),
             new AnnotationToAttribute('extends', TemplateExtends::class),
+            new AnnotationToAttribute('impure', Impure::class),
             new AnnotationToAttribute('implements', TemplateImplements::class),
             new AnnotationToAttribute('internal', Internal::class),
             new AnnotationToAttribute('method', Method::class),
@@ -42,6 +45,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('property', Property::class),
             new AnnotationToAttribute('property_read', PropertyRead::class),
             new AnnotationToAttribute('property_write', PropertyWrite::class),
+            new AnnotationToAttribute('pure', Pure::class),
             new AnnotationToAttribute('readonly', IsReadOnly::class),
             new AnnotationToAttribute('require_extends', RequireExtends::class),
             new AnnotationToAttribute('require_implements', RequireImplements::class),
