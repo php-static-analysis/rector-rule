@@ -19,6 +19,7 @@ use PhpStaticAnalysis\Attributes\TemplateCovariant;
 use PhpStaticAnalysis\Attributes\TemplateExtends;
 use PhpStaticAnalysis\Attributes\TemplateImplements;
 use PhpStaticAnalysis\Attributes\TemplateUse;
+use PhpStaticAnalysis\Attributes\Throws;
 use Rector\Config\RectorConfig;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use PhpStaticAnalysis\Attributes\IsReadOnly;
@@ -58,6 +59,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('template_implements', TemplateImplements::class),
             new AnnotationToAttribute('template_use', TemplateUse::class),
             new AnnotationToAttribute('this_out', SelfOut::class),
+            new AnnotationToAttribute('throws', Throws::class),
             new AnnotationToAttribute('use', TemplateUse::class),
             new AnnotationToAttribute('var', Type::class),
             'addParamAttributeOnParameters' => false,

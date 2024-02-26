@@ -26,6 +26,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\RequireImplementsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\SelfOutTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
@@ -293,6 +294,7 @@ CODE_SAMPLE
                 case $tagValueNode instanceof RequireImplementsTagValueNode:
                 case $tagValueNode instanceof ReturnTagValueNode:
                 case $tagValueNode instanceof SelfOutTagValueNode:
+                case $tagValueNode instanceof ThrowsTagValueNode:
                 case $tagValueNode instanceof UsesTagValueNode:
                 case $tagValueNode instanceof VarTagValueNode:
                     $args = [
