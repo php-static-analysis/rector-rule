@@ -108,11 +108,29 @@ return RectorConfig::configure()
     );
 ```
 
+If you want to replace most annotations but exclude a few, you can use the `excludeAnnotations` config parameter like this:
+
+```php
+use Rector\Config\RectorConfig;
+use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+
+return RectorConfig::configure()
+    ->withConfiguredRule(
+        AnnotationsToAttributesRector::class,
+        [
+            'excludeAnnotations' => ['throws', 'deprecated'],
+        ]
+    );
+```
+
+That would convert all annotations except `@throws` and `@deprecated`
+
 These are the available attributes and their corresponding PHPDoc annotations:
 
 | Attribute                                                                                                         | PHPDoc Annotations |
 |-------------------------------------------------------------------------------------------------------------------|--------------------|
 | [Deprecated](https://github.com/php-static-analysis/attributes/blob/main/doc/Deprecated.md)                       | `@deprecated`                        |
+| [Immmutable](https://github.com/php-static-analysis/attributes/blob/main/doc/Immmutable.md)                       | `@immmutable`                        |
 | [Impure](https://github.com/php-static-analysis/attributes/blob/main/doc/Impure.md)                               | `@impure`                            |
 | [Internal](https://github.com/php-static-analysis/attributes/blob/main/doc/Internal.md)                           | `@internal`                          |
 | [IsReadOnly](https://github.com/php-static-analysis/attributes/blob/main/doc/IsReadOnly.md)                       | `@readonly`                          |

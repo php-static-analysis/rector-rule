@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PhpStaticAnalysis\Attributes\Deprecated;
+use PhpStaticAnalysis\Attributes\Immutable;
 use PhpStaticAnalysis\Attributes\Impure;
 use PhpStaticAnalysis\Attributes\Internal;
 use PhpStaticAnalysis\Attributes\Method;
@@ -36,6 +37,7 @@ return static function (RectorConfig $rectorConfig): void {
         [
             new AnnotationToAttribute('deprecated', Deprecated::class),
             new AnnotationToAttribute('extends', TemplateExtends::class),
+            new AnnotationToAttribute('immutable', Immutable::class),
             new AnnotationToAttribute('impure', Impure::class),
             new AnnotationToAttribute('implements', TemplateImplements::class),
             new AnnotationToAttribute('internal', Internal::class),
@@ -65,6 +67,7 @@ return static function (RectorConfig $rectorConfig): void {
             'addParamAttributeOnParameters' => false,
             'useTypeAttributeForReturnAnnotation' => false,
             'usePropertyAttributeForVarAnnotation' => false,
+            'excludeAnnotations' => [],
         ]
     );
 };

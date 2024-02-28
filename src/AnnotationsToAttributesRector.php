@@ -124,19 +124,22 @@ CODE_SAMPLE
     /**
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    #[Param(configuration: '(AnnotationToAttribute|bool)[]')]
+    #[Param(configuration: '(AnnotationToAttribute|bool|string[])[]')]
     public function configure(array $configuration): void
     {
+        $excludedAnnotations = [];
         foreach ($configuration as $key => $value) {
             if ($value instanceof AnnotationToAttribute) {
                 $tag = str_replace('_', '-', $value->getTag());
                 $this->annotationsToAttributes[$tag] = $value;
-            } elseif ($key == 'addParamAttributeOnParameters') {
+            } elseif (is_bool($value) && $key == 'addParamAttributeOnParameters') {
                 $this->addParamAttributeOnParameters = $value;
-            } elseif ($key == 'useTypeAttributeForReturnAnnotation') {
+            } elseif (is_bool($value) && $key == 'useTypeAttributeForReturnAnnotation') {
                 $this->useTypeAttributeForReturnAnnotation = $value;
-            } elseif ($key == 'usePropertyAttributeForVarAnnotation') {
+            } elseif (is_bool($value) && $key == 'usePropertyAttributeForVarAnnotation') {
                 $this->usePropertyAttributeForVarAnnotation = $value;
+            } elseif (is_array($value) && $key == 'excludeAnnotations') {
+                $excludedAnnotations = $value;
             }
         }
         if ($this->useTypeAttributeForReturnAnnotation) {
@@ -149,6 +152,11 @@ CODE_SAMPLE
             if (isset($this->annotationsToAttributes['var'])) {
                 $this->annotationsToAttributes['var'] =
                     new AnnotationToAttribute('var', Property::class);
+            }
+        }
+        foreach ($excludedAnnotations as $excludedAnnotation) {
+            if (isset($this->annotationsToAttributes[$excludedAnnotation])) {
+                unset($this->annotationsToAttributes[$excludedAnnotation]);
             }
         }
     }
