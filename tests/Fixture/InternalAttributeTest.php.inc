@@ -78,18 +78,19 @@ function getName(): void
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Internal;
 use PhpStaticAnalysis\Attributes\Param;
 
-#[\PhpStaticAnalysis\Attributes\Internal]
+#[Internal]
 class InternalAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Internal]
+    #[Internal]
     public const NAME = 'name';
 
-    #[\PhpStaticAnalysis\Attributes\Internal]
+    #[Internal]
     public string $name = '';
 
-    #[\PhpStaticAnalysis\Attributes\Internal]
+    #[Internal]
     public function getName(): void
     {
     }
@@ -97,35 +98,35 @@ class InternalAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Internal]
+    #[Internal]
     public function getMoreNames(): void
     {
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Internal]
+    #[Internal]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Internal] // only available in the current namespace
+    #[Internal] // only available in the current namespace
     public function getUserName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Internal('A\B')]
+    #[Internal('A\B')]
     public function getPsalmName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Internal('A\B')] // Only available in the A\B namespace
+    #[Internal('A\B')] // Only available in the A\B namespace
     public function getPsalmNameWithComment(): void
     {
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Internal]
+#[Internal]
 function getName(): void
 {
 }

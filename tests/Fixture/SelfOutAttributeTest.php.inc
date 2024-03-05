@@ -57,16 +57,17 @@ class SelfOutAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\SelfOut;
 use PhpStaticAnalysis\Attributes\Param;
 
 class SelfOutAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\SelfOut('self<T>')]
+    #[SelfOut('self<T>')]
     public function add()
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\SelfOut('self<T>')]
+    #[SelfOut('self<T>')]
     public function addThis()
     {
     }
@@ -74,23 +75,23 @@ class SelfOutAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\SelfOut('self<T>')]
+    #[SelfOut('self<T>')]
     public function addMore()
     {
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\SelfOut('self<T>')]
+    #[SelfOut('self<T>')]
     public function addAnother()
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\SelfOut('self<T>')] // this is the new type
+    #[SelfOut('self<T>')] // this is the new type
     public function addUserName()
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\SelfOut('self<T>')]
+    #[SelfOut('self<T>')]
     public function addPsalm()
     {
     }

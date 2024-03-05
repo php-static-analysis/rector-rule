@@ -89,7 +89,7 @@ use PhpStaticAnalysis\Attributes\Returns;
 
 class ParamOutAttributeTestWithParamOnParam
 {
-    public function setName(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setName(#[ParamOut('string')]
     &$name)
     {
         $name = '';
@@ -98,21 +98,21 @@ class ParamOutAttributeTestWithParamOnParam
     /**
      * @codeCoverageIgnore
      */
-    public function setMoreNames(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setMoreNames(#[ParamOut('string')]
     &$name)
     {
         $name = '';
     }
 
     #[Returns('string')]
-    public function setAnotherName(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setAnotherName(#[ParamOut('string')]
     &$name)
     {
         $name = '';
     }
 
-    public function setTwoNames(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
-    &$name1, #[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setTwoNames(#[ParamOut('string')]
+    &$name1, #[ParamOut('string')]
     &$name2)
     {
         $name1 = '';
@@ -120,27 +120,27 @@ class ParamOutAttributeTestWithParamOnParam
     }
 
     #[ParamOut(name1: 'string')]
-    public function setTwoMoreNames(&$name1, #[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setTwoMoreNames(&$name1, #[ParamOut('string')]
     &$name2)
     {
         $name1 = '';
         $name2 = '';
     }
 
-    public function setPsalmName(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setPsalmName(#[ParamOut('string')]
     &$name)
     {
         $name = '';
     }
 
-    public function setPHPStanName(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+    public function setPHPStanName(#[ParamOut('string')]
     &$name)
     {
         $name = '';
     }
 }
 
-function setName(#[\PhpStaticAnalysis\Attributes\ParamOut('string')]
+function setName(#[ParamOut('string')]
 &$name)
 {
     $name = '';

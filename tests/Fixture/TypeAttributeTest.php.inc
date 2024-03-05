@@ -50,33 +50,34 @@ class TypeAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Type;
 use PhpStaticAnalysis\Attributes\IsReadOnly;
 
 class TypeAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public $name;
 
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public $anotherName;
 
     #[IsReadOnly]
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public $otherName;
 
-    #[\PhpStaticAnalysis\Attributes\Type('string')] // this is the name of the user
+    #[Type('string')] // this is the name of the user
     public $userName;
 
-    #[\PhpStaticAnalysis\Attributes\Type('string')] // this is also the name of the user
+    #[Type('string')] // this is also the name of the user
     public $otherUserName;
 
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public $psalmName;
 
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public $phpstanName;
 }
 

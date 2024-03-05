@@ -5,12 +5,22 @@ declare(strict_types=1);
 namespace PhpStaticAnalysis\RectorRule;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar;
+use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassConst;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Interface_;
+use PhpParser\Node\Stmt\Trait_;
+use PhpParser\Node\Stmt\TraitUse;
 use PHPStan\PhpDocParser\Ast\PhpDoc\DeprecatedTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ExtendsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
@@ -27,6 +37,8 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\SelfOutTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasImportTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
@@ -60,6 +72,8 @@ final class AnnotationsToAttributesRector extends AbstractRector implements Conf
     private bool $useTypeAttributeForReturnAnnotation = false;
 
     private bool $usePropertyAttributeForVarAnnotation = false;
+
+    private bool $useTypeAttributeForTypeClassAnnotation = false;
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover,
@@ -138,6 +152,8 @@ CODE_SAMPLE
                 $this->useTypeAttributeForReturnAnnotation = $value;
             } elseif (is_bool($value) && $key == 'usePropertyAttributeForVarAnnotation') {
                 $this->usePropertyAttributeForVarAnnotation = $value;
+            } elseif (is_bool($value) && $key == 'useTypeAttributeForTypeClassAnnotation') {
+                $this->useTypeAttributeForTypeClassAnnotation = $value;
             } elseif (is_array($value) && $key == 'excludeAnnotations') {
                 $excludedAnnotations = $value;
             }
@@ -165,13 +181,13 @@ CODE_SAMPLE
     public function getNodeTypes(): array
     {
         return [
-            Stmt\Class_::class,
-            Stmt\ClassConst::class,
-            Stmt\ClassMethod::class,
-            Stmt\Function_::class,
-            Stmt\Interface_::class,
+            Class_::class,
+            ClassConst::class,
+            ClassMethod::class,
+            Function_::class,
+            Interface_::class,
             Stmt\Property::class,
-            Stmt\Trait_::class
+            Trait_::class
         ];
     }
 
@@ -195,7 +211,7 @@ CODE_SAMPLE
         }
 
         if ($this->addParamAttributeOnParameters &&
-            ($node instanceof Stmt\ClassMethod || $node instanceof Stmt\Function_)) {
+            ($node instanceof ClassMethod || $node instanceof Function_)) {
             foreach ($attributeGroups as $attrKey => $attributeGroup) {
                 foreach ($attributeGroup->attrs as $key => $attribute) {
                     $attributeName = (string)$attribute->name;
@@ -223,9 +239,9 @@ CODE_SAMPLE
             }
         }
 
-        if ($node instanceof Stmt\Class_) {
+        if ($node instanceof Class_) {
             foreach ($node->stmts as $stmt) {
-                if ($stmt instanceof Stmt\TraitUse) {
+                if ($stmt instanceof TraitUse) {
                     $phpDocInfo = $this->phpDocInfoFactory->createFromNode($stmt);
                     if ($phpDocInfo instanceof PhpDocInfo) {
                         $useAttributeGroups = $this->processAnnotations($phpDocInfo);
@@ -273,24 +289,24 @@ CODE_SAMPLE
                         $methodSignature = substr($methodSignature, 0, -(strlen($attributeComment) + 1));
                     }
                     $args = [
-                        new Node\Arg(new Scalar\String_($methodSignature))
+                        new Arg(new String_($methodSignature))
                     ];
                     break;
                 case $tagValueNode instanceof ParamOutTagValueNode:
                 case $tagValueNode instanceof ParamTagValueNode:
                     $args = [
-                        new Node\Arg(
-                            value: new Scalar\String_((string)($tagValueNode->type)),
-                            name: new Node\Identifier(substr($tagValueNode->parameterName, 1))
+                        new Arg(
+                            value: new String_((string)($tagValueNode->type)),
+                            name: new Identifier(substr($tagValueNode->parameterName, 1))
                         )
                     ];
                     $attributeComment = $tagValueNode->description;
                     break;
                 case $tagValueNode instanceof PropertyTagValueNode:
                     $args = [
-                        new Node\Arg(
-                            value: new Scalar\String_((string)($tagValueNode->type)),
-                            name: new Node\Identifier(substr($tagValueNode->propertyName, 1))
+                        new Arg(
+                            value: new String_((string)($tagValueNode->type)),
+                            name: new Identifier(substr($tagValueNode->propertyName, 1))
                         )
                     ];
                     $attributeComment = $tagValueNode->description;
@@ -306,16 +322,16 @@ CODE_SAMPLE
                 case $tagValueNode instanceof UsesTagValueNode:
                 case $tagValueNode instanceof VarTagValueNode:
                     $args = [
-                        new Node\Arg(new Scalar\String_((string)($tagValueNode->type)))
+                        new Arg(new String_((string)($tagValueNode->type)))
                     ];
                     $attributeComment = $tagValueNode->description;
                     break;
                 case $tagValueNode instanceof TemplateTagValueNode:
                     $args = [
-                        new Node\Arg(new Scalar\String_($tagValueNode->name))
+                        new Arg(new String_($tagValueNode->name))
                     ];
                     if ($tagValueNode->bound instanceof IdentifierTypeNode) {
-                        $args[] = new Node\Arg(new Scalar\String_($tagValueNode->bound->name));
+                        $args[] = new Arg(new String_($tagValueNode->bound->name));
                     }
                     $attributeComment = $tagValueNode->description;
                     break;
@@ -327,12 +343,35 @@ CODE_SAMPLE
                         $parts = explode(' ', $remainingText);
                         $namespace = array_shift($parts);
                         if ($namespace) {
-                            $args[] = new Node\Arg(new Scalar\String_($namespace));
+                            $args[] = new Arg(new String_($namespace));
                             $attributeComment = implode(' ', $parts);
                         }
                     } else {
                         $attributeComment = (string)$tagValueNode;
                     }
+                    break;
+                case $tagValueNode instanceof TypeAliasTagValueNode:
+                    if ($this->useTypeAttributeForTypeClassAnnotation) {
+                        $alias = (string)($tagValueNode);
+                        $args = [
+                            new Arg(new String_($alias))
+                        ];
+                    } else {
+                        $args = [
+                            new Arg(
+                                value: new String_((string)($tagValueNode->type)),
+                                name: new Identifier($tagValueNode->alias)
+                            )
+                        ];
+                    }
+                    break;
+                case $tagValueNode instanceof TypeAliasImportTagValueNode:
+                    $args = [
+                        new Arg(
+                            value: new String_((string)($tagValueNode->importedFrom)),
+                            name: new Identifier($tagValueNode->importedAlias)
+                        )
+                    ];
                     break;
                 default:
                     continue 2;
@@ -375,6 +414,9 @@ CODE_SAMPLE
                 $tagName = substr($tagName, 6);
             } elseif (str_starts_with($tagName, 'phpstan-')) {
                 $tagName = substr($tagName, 8);
+            }
+            if ($this->useTypeAttributeForTypeClassAnnotation && $tagName == 'type') {
+                $tagName = 'var';
             }
             if (isset($this->annotationsToAttributes[$tagName])) {
                 return $this->annotationsToAttributes[$tagName];

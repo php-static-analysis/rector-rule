@@ -39,6 +39,7 @@ class TemplateExtendsAttributeTest3 extends TemplateClass
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\TemplateExtends;
 use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Template;
 
@@ -51,17 +52,17 @@ class TemplateClass
  * @codeCoverageIgnore
  */
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\TemplateExtends('TemplateClass<int>')] // this is the extended class
+#[TemplateExtends('TemplateClass<int>')] // this is the extended class
 class TemplateExtendsAttributeTest extends TemplateClass
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\TemplateExtends('TemplateClass<int>')]
+#[TemplateExtends('TemplateClass<int>')]
 class TemplateExtendsAttributeTest2 extends TemplateClass
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\TemplateExtends('TemplateClass<int>')]
+#[TemplateExtends('TemplateClass<int>')]
 class TemplateExtendsAttributeTest3 extends TemplateClass
 {
 }

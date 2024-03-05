@@ -25,6 +25,7 @@ class TemplateCovariantAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\TemplateCovariant;
 use Exception;
 use PhpStaticAnalysis\Attributes\Property;
 
@@ -32,12 +33,12 @@ use PhpStaticAnalysis\Attributes\Property;
  * @codeCoverageIgnore
  */
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\TemplateCovariant('T1')]
-#[\PhpStaticAnalysis\Attributes\TemplateCovariant('T2', 'Exception')]
-#[\PhpStaticAnalysis\Attributes\TemplateCovariant('T3')] // this is covariant
-#[\PhpStaticAnalysis\Attributes\TemplateCovariant('T4', 'Exception')] // this is also covariant
-#[\PhpStaticAnalysis\Attributes\TemplateCovariant('T5')]
-#[\PhpStaticAnalysis\Attributes\TemplateCovariant('T6')]
+#[TemplateCovariant('T1')]
+#[TemplateCovariant('T2', 'Exception')]
+#[TemplateCovariant('T3')] // this is covariant
+#[TemplateCovariant('T4', 'Exception')] // this is also covariant
+#[TemplateCovariant('T5')]
+#[TemplateCovariant('T6')]
 class TemplateCovariantAttributeTest
 {
 }

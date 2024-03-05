@@ -78,18 +78,19 @@ function getName(): void
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Deprecated;
 use PhpStaticAnalysis\Attributes\Param;
 
-#[\PhpStaticAnalysis\Attributes\Deprecated]
+#[Deprecated]
 class DeprecatedAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public const NAME = 'name';
 
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public string $name = '';
 
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public function getName(): void
     {
     }
@@ -97,35 +98,35 @@ class DeprecatedAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public function getMoreNames(): void
     {
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Deprecated] // use getNewUserName() instead
+    #[Deprecated] // use getNewUserName() instead
     public function getUserName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public function getPsalmName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Deprecated]
+    #[Deprecated]
     public function getPHPStanName(): void
     {
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Deprecated]
+#[Deprecated]
 function getName(): void
 {
 }

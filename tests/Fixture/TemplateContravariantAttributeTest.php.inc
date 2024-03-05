@@ -24,6 +24,7 @@ class TemplateContravariantAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\TemplateContravariant;
 use Exception;
 use PhpStaticAnalysis\Attributes\Property;
 
@@ -31,11 +32,11 @@ use PhpStaticAnalysis\Attributes\Property;
  * @codeCoverageIgnore
  */
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\TemplateContravariant('T1')]
-#[\PhpStaticAnalysis\Attributes\TemplateContravariant('T2', 'Exception')]
-#[\PhpStaticAnalysis\Attributes\TemplateContravariant('T3')] // this is contravariant
-#[\PhpStaticAnalysis\Attributes\TemplateContravariant('T4', 'Exception')] // this is also contravariant
-#[\PhpStaticAnalysis\Attributes\TemplateContravariant('T5')]
+#[TemplateContravariant('T1')]
+#[TemplateContravariant('T2', 'Exception')]
+#[TemplateContravariant('T3')] // this is contravariant
+#[TemplateContravariant('T4', 'Exception')] // this is also contravariant
+#[TemplateContravariant('T5')]
 class TemplateContravariantAttributeTest
 {
 }

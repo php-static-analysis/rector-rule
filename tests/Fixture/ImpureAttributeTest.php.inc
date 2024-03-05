@@ -51,11 +51,12 @@ class ImpureAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Impure;
 use PhpStaticAnalysis\Attributes\Param;
 
 class ImpureAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Impure]
+    #[Impure]
     public function getName(): void
     {
     }
@@ -63,24 +64,24 @@ class ImpureAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Impure]
+    #[Impure]
     public function getMoreNames(): void
     {
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Impure]
+    #[Impure]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Impure] // this function is impure
+    #[Impure] // this function is impure
     public function getUserName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Impure]
+    #[Impure]
     public function getPHPStanName(): void
     {
     }

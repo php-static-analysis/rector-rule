@@ -27,8 +27,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.0",
-        "cweagans/composer-patches": "^1.7",
-        "php-static-analysis/attributes": "^0.1.17 || dev-main",
+        "php-static-analysis/attributes": "^0.2.2 || dev-main",
         "rector/rector": "^0.19 || ^1.0"
     },
     "require-dev": {
@@ -38,7 +37,6 @@
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.0",
         "symplify/easy-coding-standard": "^12.1",
-        "symplify/vendor-patches": "^11.3",
         "vimeo/psalm": "^5",
         "webmozart/assert": "^1.11"
     },
@@ -61,19 +59,8 @@
     },
     "config": {
         "allow-plugins": {
-            "phpstan/extension-installer": true,
-            "cweagans/composer-patches": true
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
-    },
-    "extra": {
-        "patches": {
-            "rector/rector": [
-                "patches/rector-rector-src-phpparser-printer-betterstandardprinter-php.patch",
-                "patches/rector-rector-src-nodetyperesolver-node-attributekey-php.patch"
-            ]
-        },
-        "composer-exit-on-patch-failure": true,
-        "enable-patching": true
     }
 }

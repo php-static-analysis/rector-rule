@@ -22,16 +22,17 @@ class PropertyWriteAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\PropertyWrite;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
  * @codeCoverageIgnore
  */
 #[Template('T')]
-#[\PhpStaticAnalysis\Attributes\PropertyWrite(name: 'string')]
-#[\PhpStaticAnalysis\Attributes\PropertyWrite(userName: 'string')] // the name of the user
-#[\PhpStaticAnalysis\Attributes\PropertyWrite(num: 'int')]
-#[\PhpStaticAnalysis\Attributes\PropertyWrite(index: 'string[]')]
+#[PropertyWrite(name: 'string')]
+#[PropertyWrite(userName: 'string')] // the name of the user
+#[PropertyWrite(num: 'int')]
+#[PropertyWrite(index: 'string[]')]
 class PropertyWriteAttributeTest
 {
 }

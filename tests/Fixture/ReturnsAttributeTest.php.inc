@@ -71,11 +71,12 @@ function getName()
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Returns;
 use PhpStaticAnalysis\Attributes\Param;
 
 class ReturnsAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    #[Returns('string')]
     public function getName()
     {
         return 'John';
@@ -84,39 +85,39 @@ class ReturnsAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    #[Returns('string')]
     public function getMoreNames()
     {
         return 'Mike';
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    #[Returns('string')]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Returns('string')] // the name of the user
+    #[Returns('string')] // the name of the user
     public function getUserName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    #[Returns('string')]
     public function getPsalmName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Returns('string')]
+    #[Returns('string')]
     public function getPHPStanName()
     {
         return 'John';
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Returns('string')]
+#[Returns('string')]
 function getName()
 {
     return "Ann";

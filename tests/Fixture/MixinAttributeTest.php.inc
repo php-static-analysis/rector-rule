@@ -20,14 +20,15 @@ class MixinAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Mixin;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
  * @codeCoverageIgnore
  */
 #[Template('T')]
-#[\PhpStaticAnalysis\Attributes\Mixin('A')]
-#[\PhpStaticAnalysis\Attributes\Mixin('B')] // the proxied class
+#[Mixin('A')]
+#[Mixin('B')] // the proxied class
 class MixinAttributeTest
 {
 }

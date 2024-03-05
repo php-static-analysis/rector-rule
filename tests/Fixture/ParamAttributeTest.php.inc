@@ -95,7 +95,7 @@ use PhpStaticAnalysis\Attributes\Returns;
 
 class ParamAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    #[Param(name: 'string')]
     public function getName($name)
     {
         return $name;
@@ -104,53 +104,53 @@ class ParamAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    #[Param(name: 'string')]
     public function getMoreNames($name)
     {
         return $name;
     }
 
     #[Returns('string')]
-    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    #[Param(name: 'string')]
     public function getAnotherName($name)
     {
         return $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Param(name1: 'string')]
-    #[\PhpStaticAnalysis\Attributes\Param(name2: 'string')]
+    #[Param(name1: 'string')]
+    #[Param(name2: 'string')]
     public function getTwoNames($name1, $name2)
     {
         return $name1 . $name2;
     }
 
     #[Param(name1: 'string')]
-    #[\PhpStaticAnalysis\Attributes\Param(name2: 'string')]
+    #[Param(name2: 'string')]
     public function getTwoMoreNames($name1, $name2)
     {
         return $name1 . $name2;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')] // the name of the user
+    #[Param(name: 'string')] // the name of the user
     public function getUserName($name)
     {
         return $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    #[Param(name: 'string')]
     public function getPsalmName($name)
     {
         return $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+    #[Param(name: 'string')]
     public function getPHPStanName($name)
     {
         return $name;
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Param(name: 'string')]
+#[Param(name: 'string')]
 function getName($name)
 {
     return $name;

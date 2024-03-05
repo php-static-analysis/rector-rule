@@ -6,14 +6,14 @@ use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
 use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisSetList;
 use Rector\Config\RectorConfig;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->sets([
+return RectorConfig::configure()
+    ->withSets([
         PhpStaticAnalysisSetList::ANNOTATIONS_TO_ATTRIBUTES
-    ]);
-    $rectorConfig->ruleWithConfiguration(
+    ])
+    ->withConfiguredRule(
         AnnotationsToAttributesRector::class,
         [
             'useTypeAttributeForReturnAnnotation' => true,
         ]
-    );
-};
+    )
+    ->withImportNames();

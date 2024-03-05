@@ -40,27 +40,28 @@ class PropertyAttributeTestForVarAnnotation
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\IsReadOnly;
 
 class PropertyAttributeTestForVarAnnotation
 {
-    #[\PhpStaticAnalysis\Attributes\Property('string')]
+    #[Property('string')]
     public $name;
 
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Property('string')]
+    #[Property('string')]
     public $anotherName;
 
     #[IsReadOnly]
-    #[\PhpStaticAnalysis\Attributes\Property('string')]
+    #[Property('string')]
     public $otherName;
 
-    #[\PhpStaticAnalysis\Attributes\Property('string')]
+    #[Property('string')]
     public $psalmName;
 
-    #[\PhpStaticAnalysis\Attributes\Property('string')]
+    #[Property('string')]
     public $phpstanName;
 }
 

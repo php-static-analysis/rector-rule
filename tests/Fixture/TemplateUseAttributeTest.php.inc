@@ -42,6 +42,7 @@ class TemplateUseAttributeTest3
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\TemplateUse;
 use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Template;
 
@@ -51,7 +52,7 @@ trait TemplateTrait
 }
 
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\TemplateUse('TemplateTrait<int>')] // this is the used trait
+#[TemplateUse('TemplateTrait<int>')] // this is the used trait
 class TemplateUseAttributeTest
 {
     /**
@@ -60,13 +61,13 @@ class TemplateUseAttributeTest
     use TemplateTrait;
 }
 
-#[\PhpStaticAnalysis\Attributes\TemplateUse('TemplateTrait<int>')]
+#[TemplateUse('TemplateTrait<int>')]
 class TemplateUseAttributeTest2
 {
     use TemplateTrait;
 }
 
-#[\PhpStaticAnalysis\Attributes\TemplateUse('TemplateTrait<int>')]
+#[TemplateUse('TemplateTrait<int>')]
 class TemplateUseAttributeTest3
 {
     use TemplateTrait;

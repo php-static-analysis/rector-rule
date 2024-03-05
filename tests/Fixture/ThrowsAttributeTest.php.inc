@@ -64,12 +64,13 @@ function getName(): void
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Throws;
 use Exception;
 use PhpStaticAnalysis\Attributes\Param;
 
 class ThrowsAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Throws('Exception')]
+    #[Throws('Exception')]
     public function getName(): void
     {
         throw new Exception();
@@ -78,33 +79,33 @@ class ThrowsAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Throws('Exception')]
+    #[Throws('Exception')]
     public function getMoreNames(): void
     {
         throw new Exception();
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Throws('Exception')]
+    #[Throws('Exception')]
     public function getAnotherName($name): void
     {
         throw new Exception();
     }
 
-    #[\PhpStaticAnalysis\Attributes\Throws('Exception')] // this is the exception that is thrown
+    #[Throws('Exception')] // this is the exception that is thrown
     public function getUserName(): void
     {
         throw new Exception();
     }
 
-    #[\PhpStaticAnalysis\Attributes\Throws('Exception')]
+    #[Throws('Exception')]
     public function getPHPStanName(): void
     {
         throw new Exception();
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Throws('Exception')]
+#[Throws('Exception')]
 function getName(): void
 {
     throw new Exception();

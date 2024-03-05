@@ -45,30 +45,31 @@ class IsReadOnlyAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\IsReadOnly;
 use PhpStaticAnalysis\Attributes\Type;
 
 class IsReadOnlyAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    #[IsReadOnly]
     public $name;
 
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    #[IsReadOnly]
     public $anotherName;
 
     #[Type('string')]
-    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    #[IsReadOnly]
     public $otherName;
 
-    #[\PhpStaticAnalysis\Attributes\IsReadOnly] // please do not write here
+    #[IsReadOnly] // please do not write here
     public $nameWithComment;
 
-    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    #[IsReadOnly]
     public $psalmName;
 
-    #[\PhpStaticAnalysis\Attributes\IsReadOnly]
+    #[IsReadOnly]
     public $phpstanName;
 }
 

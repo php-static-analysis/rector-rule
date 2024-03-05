@@ -22,16 +22,17 @@ class MethodAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Method;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
  * @codeCoverageIgnore
  */
 #[Template('T')]
-#[\PhpStaticAnalysis\Attributes\Method('string getString()')]
-#[\PhpStaticAnalysis\Attributes\Method('string getName()')] // used to get the name
-#[\PhpStaticAnalysis\Attributes\Method('void setString(string $text)')]
-#[\PhpStaticAnalysis\Attributes\Method('static string staticGetter()')]
+#[Method('string getString()')]
+#[Method('string getName()')] // used to get the name
+#[Method('void setString(string $text)')]
+#[Method('static string staticGetter()')]
 class MethodAttributeTest
 {
 }

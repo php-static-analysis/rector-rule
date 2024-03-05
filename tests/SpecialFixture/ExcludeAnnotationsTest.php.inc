@@ -29,15 +29,17 @@ class ExcludeAnnotationsTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Template;
+use PhpStaticAnalysis\Attributes\Type;
 use Exception;
 
 /**
  * @deprecated
  */
-#[\PhpStaticAnalysis\Attributes\Template('T')]
+#[Template('T')]
 class ExcludeAnnotationsTest
 {
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public $name;
 
     /**

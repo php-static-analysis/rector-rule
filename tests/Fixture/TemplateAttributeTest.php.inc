@@ -90,18 +90,19 @@ function getName()
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Template;
 use PhpStaticAnalysis\Attributes\Param;
 
-#[\PhpStaticAnalysis\Attributes\Template('T')]
+#[Template('T')]
 class TemplateAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[Template('T')]
     public function getName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T', 'object')]
+    #[Template('T', 'object')]
     public function getExtraName()
     {
         return 'John';
@@ -110,45 +111,45 @@ class TemplateAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[Template('T')]
     public function getMoreNames()
     {
         return 'Mike';
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[Template('T')]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T')] // the type of object
+    #[Template('T')] // the type of object
     public function getUserName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T', 'object')] // the type of object
+    #[Template('T', 'object')] // the type of object
     public function getAnotherUserName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[Template('T')]
     public function getPsalmName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Template('T')]
+    #[Template('T')]
     public function getPHPStanName()
     {
         return 'John';
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Template('T')]
+#[Template('T')]
 function getName()
 {
     return "Ann";

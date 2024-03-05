@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use PhpStaticAnalysis\Attributes\DefineType;
 use PhpStaticAnalysis\Attributes\Deprecated;
 use PhpStaticAnalysis\Attributes\Immutable;
+use PhpStaticAnalysis\Attributes\ImportType;
 use PhpStaticAnalysis\Attributes\Impure;
 use PhpStaticAnalysis\Attributes\Internal;
 use PhpStaticAnalysis\Attributes\Method;
@@ -31,13 +33,14 @@ use PhpStaticAnalysis\Attributes\Template;
 use PhpStaticAnalysis\Attributes\Type;
 use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(
+return RectorConfig::configure()
+    ->withConfiguredRule(
         AnnotationsToAttributesRector::class,
         [
             new AnnotationToAttribute('deprecated', Deprecated::class),
             new AnnotationToAttribute('extends', TemplateExtends::class),
             new AnnotationToAttribute('immutable', Immutable::class),
+            new AnnotationToAttribute('import_type', ImportType::class),
             new AnnotationToAttribute('impure', Impure::class),
             new AnnotationToAttribute('implements', TemplateImplements::class),
             new AnnotationToAttribute('internal', Internal::class),
@@ -62,12 +65,14 @@ return static function (RectorConfig $rectorConfig): void {
             new AnnotationToAttribute('template_use', TemplateUse::class),
             new AnnotationToAttribute('this_out', SelfOut::class),
             new AnnotationToAttribute('throws', Throws::class),
+            new AnnotationToAttribute('type', DefineType::class),
             new AnnotationToAttribute('use', TemplateUse::class),
             new AnnotationToAttribute('var', Type::class),
             'addParamAttributeOnParameters' => false,
             'useTypeAttributeForReturnAnnotation' => false,
             'usePropertyAttributeForVarAnnotation' => false,
             'excludeAnnotations' => [],
+            'useTypeAttributeForTypeClassAnnotation' => false,
         ]
-    );
-};
+    )
+    ->withImportNames();

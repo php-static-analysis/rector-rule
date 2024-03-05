@@ -13,7 +13,7 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         AnnotationsToAttributesRector::class,
         [
-            'addParamAttributeOnParameters' => true,
+            'useTypeAttributeForTypeClassAnnotation' => true,
         ]
     )
     ->withImportNames();

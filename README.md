@@ -86,8 +86,10 @@ use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisSetList;
 return RectorConfig::configure()
     ->withSets([
         PhpStaticAnalysisSetList::ANNOTATIONS_TO_ATTRIBUTES
-    ]);
+    ])
+    ->withImportNames();
 ```
+(We recommend that you add the `withImportNames()` option so that attributes are not added with their fully qualified name)
 
 If you only want to replace some annotations and leave the others as they are, use the rule configured with the annotations that you need. For example, if you only want to replace the `@return` and `@param` annotations, use this configuration:
 
@@ -129,8 +131,10 @@ These are the available attributes and their corresponding PHPDoc annotations:
 
 | Attribute                                                                                                         | PHPDoc Annotations |
 |-------------------------------------------------------------------------------------------------------------------|--------------------|
+| [DefineType](https://github.com/php-static-analysis/attributes/blob/main/doc/DefineType.md)                       | `@type`                              |
 | [Deprecated](https://github.com/php-static-analysis/attributes/blob/main/doc/Deprecated.md)                       | `@deprecated`                        |
 | [Immmutable](https://github.com/php-static-analysis/attributes/blob/main/doc/Immmutable.md)                       | `@immmutable`                        |
+| [ImportType](https://github.com/php-static-analysis/attributes/blob/main/doc/ImportType.md)                       | `@import-type`                       |
 | [Impure](https://github.com/php-static-analysis/attributes/blob/main/doc/Impure.md)                               | `@impure`                            |
 | [Internal](https://github.com/php-static-analysis/attributes/blob/main/doc/Internal.md)                           | `@internal`                          |
 | [IsReadOnly](https://github.com/php-static-analysis/attributes/blob/main/doc/IsReadOnly.md)                       | `@readonly`                          |

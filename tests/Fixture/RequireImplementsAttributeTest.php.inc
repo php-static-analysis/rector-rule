@@ -37,13 +37,14 @@ trait RequireImplementsAttributeTest3
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\RequireImplements;
 use PhpStaticAnalysis\Attributes\Property;
 
 interface RequireInterface
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\RequireImplements('RequireInterface')]
+#[RequireImplements('RequireInterface')]
 trait RequireImplementsAttributeTest
 {
 }
@@ -52,12 +53,12 @@ trait RequireImplementsAttributeTest
  * @codeCoverageIgnore
  */
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\RequireImplements('RequireInterface')] // this is the interface that needs to be implemented
+#[RequireImplements('RequireInterface')] // this is the interface that needs to be implemented
 trait RequireImplementsAttributeTest2
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\RequireImplements('RequireInterface')]
+#[RequireImplements('RequireInterface')]
 trait RequireImplementsAttributeTest3
 {
 }

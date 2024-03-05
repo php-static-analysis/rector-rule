@@ -39,6 +39,7 @@ class TemplateImplementsAttributeTest3 implements TemplateInterface
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\TemplateImplements;
 use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Template;
 
@@ -51,17 +52,17 @@ interface TemplateInterface
  * @codeCoverageIgnore
  */
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\TemplateImplements('TemplateInterface<int>')] // this is the implemented interface
+#[TemplateImplements('TemplateInterface<int>')] // this is the implemented interface
 class TemplateImplementsAttributeTest implements TemplateInterface
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\TemplateImplements('TemplateInterface<int>')]
+#[TemplateImplements('TemplateInterface<int>')]
 class TemplateImplementsAttributeTest2 implements TemplateInterface
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\TemplateImplements('TemplateInterface<int>')]
+#[TemplateImplements('TemplateInterface<int>')]
 class TemplateImplementsAttributeTest3 implements TemplateInterface
 {
 }

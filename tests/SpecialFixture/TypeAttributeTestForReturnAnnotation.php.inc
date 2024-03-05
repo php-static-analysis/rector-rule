@@ -63,11 +63,12 @@ function getName()
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Type;
 use PhpStaticAnalysis\Attributes\Param;
 
 class TypeAttributeTestForReturnAnnotation
 {
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public function getName()
     {
         return 'John';
@@ -76,33 +77,33 @@ class TypeAttributeTestForReturnAnnotation
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public function getMoreNames()
     {
         return 'Mike';
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public function getPsalmName()
     {
         return 'John';
     }
 
-    #[\PhpStaticAnalysis\Attributes\Type('string')]
+    #[Type('string')]
     public function getPHPStanName()
     {
         return 'John';
     }
 }
 
-#[\PhpStaticAnalysis\Attributes\Type('string')]
+#[Type('string')]
 function getName()
 {
     return "Ann";

@@ -58,11 +58,12 @@ class PureAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Pure;
 use PhpStaticAnalysis\Attributes\Param;
 
 class PureAttributeTest
 {
-    #[\PhpStaticAnalysis\Attributes\Pure]
+    #[Pure]
     public function getName(): void
     {
     }
@@ -70,29 +71,29 @@ class PureAttributeTest
     /**
      * @codeCoverageIgnore
      */
-    #[\PhpStaticAnalysis\Attributes\Pure]
+    #[Pure]
     public function getMoreNames(): void
     {
     }
 
     #[Param(name:'string')]
-    #[\PhpStaticAnalysis\Attributes\Pure]
+    #[Pure]
     public function getAnotherName($name)
     {
         return "Hello " . $name;
     }
 
-    #[\PhpStaticAnalysis\Attributes\Pure] // this function is pure
+    #[Pure] // this function is pure
     public function getUserName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Pure]
+    #[Pure]
     public function getPsalmName(): void
     {
     }
 
-    #[\PhpStaticAnalysis\Attributes\Pure]
+    #[Pure]
     public function getPHPStanName(): void
     {
     }

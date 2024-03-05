@@ -22,16 +22,17 @@ class PropertyAttributeTest
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Template;
 
 /**
  * @codeCoverageIgnore
  */
 #[Template('T')]
-#[\PhpStaticAnalysis\Attributes\Property(name: 'string')]
-#[\PhpStaticAnalysis\Attributes\Property(userName: 'string')] // the name of the user
-#[\PhpStaticAnalysis\Attributes\Property(num: 'int')]
-#[\PhpStaticAnalysis\Attributes\Property(index: 'string[]')]
+#[Property(name: 'string')]
+#[Property(userName: 'string')] // the name of the user
+#[Property(num: 'int')]
+#[Property(index: 'string[]')]
 class PropertyAttributeTest
 {
 }

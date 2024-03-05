@@ -37,13 +37,14 @@ trait RequireExtendsAttributeTest3
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
+use PhpStaticAnalysis\Attributes\RequireExtends;
 use PhpStaticAnalysis\Attributes\Property;
 
 class RequireClass
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\RequireExtends('RequireClass')]
+#[RequireExtends('RequireClass')]
 trait RequireExtendsAttributeTest
 {
 }
@@ -52,12 +53,12 @@ trait RequireExtendsAttributeTest
  * @codeCoverageIgnore
  */
 #[Property(name:'string')]
-#[\PhpStaticAnalysis\Attributes\RequireExtends('RequireClass')] // this is the class that needs to be extended
+#[RequireExtends('RequireClass')] // this is the class that needs to be extended
 trait RequireExtendsAttributeTest2
 {
 }
 
-#[\PhpStaticAnalysis\Attributes\RequireExtends('RequireClass')]
+#[RequireExtends('RequireClass')]
 trait RequireExtendsAttributeTest3
 {
 }

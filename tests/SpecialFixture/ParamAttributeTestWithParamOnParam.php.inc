@@ -87,7 +87,7 @@ use PhpStaticAnalysis\Attributes\Returns;
 
 class ParamAttributeTestWithParamOnParam
 {
-    public function getName(#[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getName(#[Param('string')]
     $name)
     {
         return $name;
@@ -96,47 +96,47 @@ class ParamAttributeTestWithParamOnParam
     /**
      * @codeCoverageIgnore
      */
-    public function getMoreNames(#[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getMoreNames(#[Param('string')]
     $name)
     {
         return $name;
     }
 
     #[Returns('string')]
-    public function getAnotherName(#[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getAnotherName(#[Param('string')]
     $name)
     {
         return $name;
     }
 
-    public function getTwoNames(#[\PhpStaticAnalysis\Attributes\Param('string')]
-    $name1, #[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getTwoNames(#[Param('string')]
+    $name1, #[Param('string')]
     $name2)
     {
         return $name1 . $name2;
     }
 
     #[Param(name1: 'string')]
-    public function getTwoMoreNames($name1, #[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getTwoMoreNames($name1, #[Param('string')]
     $name2)
     {
         return $name1 . $name2;
     }
 
-    public function getPsalmName(#[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getPsalmName(#[Param('string')]
     $name)
     {
         return $name;
     }
 
-    public function getPHPStanName(#[\PhpStaticAnalysis\Attributes\Param('string')]
+    public function getPHPStanName(#[Param('string')]
     $name)
     {
         return $name;
     }
 }
 
-function getName(#[\PhpStaticAnalysis\Attributes\Param('string')]
+function getName(#[Param('string')]
 $name)
 {
     return $name;
