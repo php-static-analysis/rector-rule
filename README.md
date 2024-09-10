@@ -1,7 +1,6 @@
 # PHP Static Analysis RectorPHP Rule
 [![Continuous Integration](https://github.com/php-static-analysis/rector-rule/workflows/All%20Tests/badge.svg)](https://github.com/php-static-analysis/rector-rule/actions)
 [![Latest Stable Version](https://poser.pugx.org/php-static-analysis/rector-rule/v/stable)](https://packagist.org/packages/php-static-analysis/rector-rule)
-[![PHP Version Require](http://poser.pugx.org/php-static-analysis/rector-rule/require/php)](https://packagist.org/packages/php-static-analysis/rector-rule)
 [![License](https://poser.pugx.org/php-static-analysis/rector-rule/license)](https://github.com/php-static-analysis/rector-rule/blob/main/LICENSE)
 [![Total Downloads](https://poser.pugx.org/php-static-analysis/rector-rule/downloads)](https://packagist.org/packages/php-static-analysis/rector-rule/stats)
 
@@ -215,4 +214,8 @@ return RectorConfig::configure()
         ]
     );
 ```
+
+## Sponsor this project
+
+If you would like to support the development of this project, please consider [sponsoring me](https://github.com/sponsors/carlos-granados)
 
