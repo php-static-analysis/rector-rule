@@ -130,6 +130,9 @@ These are the available attributes and their corresponding PHPDoc annotations:
 
 | Attribute                                                                                                         | PHPDoc Annotations |
 |-------------------------------------------------------------------------------------------------------------------|--------------------|
+| [Assert](https://github.com/php-static-analysis/attributes/blob/main/doc/Assert.md)                               | `@assert`                            |
+| [AssertIfFalse](https://github.com/php-static-analysis/attributes/blob/main/doc/AssertIfFalse.md)           | `@assert-if-false`                   |
+| [AssertIfTrue](https://github.com/php-static-analysis/attributes/blob/main/doc/AssertIfTrue.md)             | `@assert-if-true`                    |
 | [DefineType](https://github.com/php-static-analysis/attributes/blob/main/doc/DefineType.md)                       | `@type`                              |
 | [Deprecated](https://github.com/php-static-analysis/attributes/blob/main/doc/Deprecated.md)                       | `@deprecated`                        |
 | [Immmutable](https://github.com/php-static-analysis/attributes/blob/main/doc/Immmutable.md)                       | `@immmutable`                        |
@@ -160,7 +163,7 @@ These are the available attributes and their corresponding PHPDoc annotations:
 
 ### Location of Param and ParamOut attributes
 
-By default `Param` and `ParamOut `attributes are added on the method/function where the `@param` or `@param-out` annotation was located. It is possible to instead add them on the corresponding parameter in the function. To activate this option, add this code to your configuration:
+By default `Param` and `ParamOut` attributes are added on the method/function where the `@param` or `@param-out` annotation was located. It is possible to instead add them on the corresponding parameter in the function. To activate this option, add this code to your configuration:
 
 ```php
 use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
@@ -173,6 +176,25 @@ return RectorConfig::configure()
         AnnotationsToAttributesRector::class,
         [
             'addParamAttributeOnParameters' => true,
+        ]
+    );
+```
+
+### Location of Assert, AssertIfFalse and AssertIfTrue attributes
+
+By default `Assert`, `AssertIfFalse` and `AssertIfTrue` attributes are added on the method/function where the `@assert`, `@assert-if-false` or `@assert-if-true` annotation was located. It is possible to instead add them on the corresponding parameter in the function. To activate this option, add this code to your configuration:
+
+```php
+use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+use Rector\Config\RectorConfig;
+...
+
+return RectorConfig::configure()
+    ...
+    ->withConfiguredRule(
+        AnnotationsToAttributesRector::class,
+        [
+            'addAssertAttributeOnParameters' => true,
         ]
     );
 ```
@@ -211,6 +233,25 @@ return RectorConfig::configure()
         AnnotationsToAttributesRector::class,
         [
             'usePropertyAttributeForVarAnnotation' => true,
+        ]
+    );
+```
+
+### Attribute to use for the definition of types for classes
+
+By default `DefineType` attributes are added to define a type for a class. It is possible to use the `Type` attribute instead. To activate this option, add this code to your configuration:
+
+```php
+use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+use Rector\Config\RectorConfig;
+...
+
+return RectorConfig::configure()
+    ...
+    ->withConfiguredRule(
+        AnnotationsToAttributesRector::class,
+        [
+            'useTypeAttributeForTypeClassAnnotation' => true,
         ]
     );
 ```

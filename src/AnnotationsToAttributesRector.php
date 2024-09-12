@@ -21,6 +21,9 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Trait_;
 use PhpParser\Node\Stmt\TraitUse;
+use PHPStan\PhpDocParser\Ast\PhpDoc\AssertTagMethodValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\AssertTagPropertyValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\AssertTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\DeprecatedTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ExtendsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
@@ -42,6 +45,9 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PhpStaticAnalysis\Attributes\Assert;
+use PhpStaticAnalysis\Attributes\AssertIfFalse;
+use PhpStaticAnalysis\Attributes\AssertIfTrue;
 use PhpStaticAnalysis\Attributes\Param;
 use PhpStaticAnalysis\Attributes\ParamOut;
 use PhpStaticAnalysis\Attributes\Property;
@@ -68,6 +74,8 @@ final class AnnotationsToAttributesRector extends AbstractRector implements Conf
     private array $annotationsToAttributes = [];
 
     private bool $addParamAttributeOnParameters = false;
+
+    private bool $addAssertAttributeOnParameters = false;
 
     private bool $useTypeAttributeForReturnAnnotation = false;
 
@@ -148,6 +156,8 @@ CODE_SAMPLE
                 $this->annotationsToAttributes[$tag] = $value;
             } elseif (is_bool($value) && $key == 'addParamAttributeOnParameters') {
                 $this->addParamAttributeOnParameters = $value;
+            } elseif (is_bool($value) && $key == 'addAssertAttributeOnParameters') {
+                $this->addAssertAttributeOnParameters = $value;
             } elseif (is_bool($value) && $key == 'useTypeAttributeForReturnAnnotation') {
                 $this->useTypeAttributeForReturnAnnotation = $value;
             } elseif (is_bool($value) && $key == 'usePropertyAttributeForVarAnnotation') {
@@ -210,12 +220,17 @@ CODE_SAMPLE
             $this->attributeGroupNamedArgumentManipulator->decorate($attributeGroups);
         }
 
-        if ($this->addParamAttributeOnParameters &&
+        if (($this->addParamAttributeOnParameters || $this->addAssertAttributeOnParameters) &&
             ($node instanceof ClassMethod || $node instanceof Function_)) {
             foreach ($attributeGroups as $attrKey => $attributeGroup) {
                 foreach ($attributeGroup->attrs as $key => $attribute) {
                     $attributeName = (string)$attribute->name;
-                    if ($attributeName === Param::class || $attributeName == ParamOut::class) {
+                    if (
+                        (($attributeName === Param::class || $attributeName === ParamOut::class)
+                        && $this->addParamAttributeOnParameters) ||
+                        (($attributeName === Assert::class || $attributeName === AssertIfFalse::class || $attributeName === AssertIfTrue::class)
+                        && $this->addAssertAttributeOnParameters)
+                    ) {
                         $args = $attribute->args;
                         if (isset($args[0])) {
                             $arg = $args[0];
@@ -372,6 +387,33 @@ CODE_SAMPLE
                             name: new Identifier($tagValueNode->importedAlias)
                         )
                     ];
+                    break;
+                case $tagValueNode instanceof AssertTagValueNode:
+                case $tagValueNode instanceof AssertTagPropertyValueNode:
+                case $tagValueNode instanceof AssertTagMethodValueNode:
+                    $type = (string)($tagValueNode->type);
+                    if ($tagValueNode->isNegated) {
+                        $type = '!' . $type;
+                    }
+                    if ($tagValueNode->isEquality) {
+                        $type = '=' . $type;
+                    }
+                    if ($tagValueNode instanceof AssertTagValueNode) {
+                        $args = [
+                            new Arg(
+                                value: new String_($type),
+                                name: new Identifier(substr($tagValueNode->parameter, 1))
+                            )
+                        ];
+                    } else {
+                        if ($tagValueNode instanceof AssertTagPropertyValueNode) {
+                            $type .= ' ' . $tagValueNode->parameter . '->' . $tagValueNode->property;
+                        } else {
+                            $type .= ' ' . $tagValueNode->parameter . '->' . $tagValueNode->method . '()';
+                        }
+                        $args = [new Arg(new String_($type))];
+                    }
+                    $attributeComment = $tagValueNode->description;
                     break;
                 default:
                     continue 2;

@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use PhpStaticAnalysis\Attributes\Assert;
+use PhpStaticAnalysis\Attributes\AssertIfFalse;
+use PhpStaticAnalysis\Attributes\AssertIfTrue;
 use PhpStaticAnalysis\Attributes\DefineType;
 use PhpStaticAnalysis\Attributes\Deprecated;
 use PhpStaticAnalysis\Attributes\Immutable;
@@ -37,6 +40,9 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         AnnotationsToAttributesRector::class,
         [
+            new AnnotationToAttribute('assert', Assert::class),
+            new AnnotationToAttribute('assert_if_false', AssertIfFalse::class),
+            new AnnotationToAttribute('assert_if_true', AssertIfTrue::class),
             new AnnotationToAttribute('deprecated', Deprecated::class),
             new AnnotationToAttribute('extends', TemplateExtends::class),
             new AnnotationToAttribute('immutable', Immutable::class),
@@ -69,6 +75,7 @@ return RectorConfig::configure()
             new AnnotationToAttribute('use', TemplateUse::class),
             new AnnotationToAttribute('var', Type::class),
             'addParamAttributeOnParameters' => false,
+            'addAssertAttributeOnParameters' => false,
             'useTypeAttributeForReturnAnnotation' => false,
             'usePropertyAttributeForVarAnnotation' => false,
             'excludeAnnotations' => [],
