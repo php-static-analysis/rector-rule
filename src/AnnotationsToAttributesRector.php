@@ -207,6 +207,7 @@ CODE_SAMPLE
     #[Param(node: 'Stmt\Class_|Stmt\ClassConst|Stmt\ClassMethod|Stmt\Function_|Stmt\Interface_|Stmt\Property|Stmt\Trait_')]
     public function refactor(Node $node): ?Node
     {
+        $hasChanged = false;
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
 
         $attributeGroups = [];
@@ -215,6 +216,7 @@ CODE_SAMPLE
         }
 
         if ($attributeGroups !== []) {
+            $hasChanged = true;
             $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
             $this->attributeGroupNamedArgumentManipulator->decorate($attributeGroups);
@@ -243,6 +245,8 @@ CODE_SAMPLE
                                     $arg->name = null;
                                     $parameterAttributeGroups = [new AttributeGroup([$attribute])];
                                     $parameter->attrGroups = array_merge($parameter->attrGroups, $parameterAttributeGroups);
+
+                                    $hasChanged = true;
                                 }
                             }
                         }
@@ -250,6 +254,7 @@ CODE_SAMPLE
                 }
                 if ($attributeGroup->attrs === []) {
                     unset($attributeGroups[$attrKey]);
+                    $hasChanged = true;
                 }
             }
         }
@@ -266,6 +271,8 @@ CODE_SAMPLE
 
                             $this->attributeGroupNamedArgumentManipulator->decorate($useAttributeGroups);
                             $attributeGroups = array_merge($attributeGroups, $useAttributeGroups);
+
+                            $hasChanged = true;
                         }
                     }
                 }
@@ -274,6 +281,11 @@ CODE_SAMPLE
 
         if ($attributeGroups !== []) {
             $node->attrGroups = array_merge($node->attrGroups, $attributeGroups);
+            $hasChanged = true;
+        }
+
+        if (! $hasChanged) {
+            return null;
         }
 
         return $node;
