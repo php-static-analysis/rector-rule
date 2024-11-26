@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisAnnotationsToAttributesSetList;
 use Rector\Config\RectorConfig;
-use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisSetList;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -15,5 +15,5 @@ return RectorConfig::configure()
         __DIR__ . '/tests/SpecialFixture',
     ])
     ->withSets([
-        PhpStaticAnalysisSetList::ANNOTATIONS_TO_ATTRIBUTES
+        PhpStaticAnalysisAnnotationsToAttributesSetList::ANNOTATIONS_TO_ATTRIBUTES
     ]);

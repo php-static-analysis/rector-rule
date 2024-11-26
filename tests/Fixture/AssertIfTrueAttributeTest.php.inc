@@ -2,7 +2,6 @@
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
-use Exception;
 use PhpStaticAnalysis\Attributes\AssertIfTrue;
 use PhpStaticAnalysis\Attributes\Returns;
 
@@ -115,7 +114,6 @@ function checkName($name)
 
 namespace test\PhpStaticAnalysis\RectorRule\Fixture;
 
-use Exception;
 use PhpStaticAnalysis\Attributes\AssertIfTrue;
 use PhpStaticAnalysis\Attributes\Returns;
 

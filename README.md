@@ -80,11 +80,11 @@ To replace all the annotations that this package covers, use the set provided by
 
 ```php
 use Rector\Config\RectorConfig;
-use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisSetList;
+use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisAnnotationsToAttributesSetList;
 
 return RectorConfig::configure()
     ->withSets([
-        PhpStaticAnalysisSetList::ANNOTATIONS_TO_ATTRIBUTES
+        PhpStaticAnalysisAnnotationsToAttributesSetList::ANNOTATIONS_TO_ATTRIBUTES
     ])
     ->withImportNames();
 ```
@@ -255,6 +255,32 @@ return RectorConfig::configure()
         ]
     );
 ```
+## Using these rules with Rector
+
+Once you have converted your static analysis annotations to attributes, you may want to use them with Rector, so that Rector can 
+understand them and use them to apply its rules. To do this, when running rector we first need to temporarily convert these attributes
+back to annotations, then run your Rector rules and finally convert the annotations back to attributes. To do this, use this in your
+configuration:
+
+```php
+use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisAnnotationsToAttributesSetList;
+use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisAttributesToAnnotationsSetList;
+use Rector\Config\RectorConfig;
+...
+
+return RectorConfig::configure()
+    ->withSets([
+        PhpStaticAnalysisAttributesToAnnotationsSetList::ATTRIBUTES_TO_ANNOTATIONS
+    ])
+    ...
+    //any other Rector rules or sets
+    ...
+    ->withSets([
+        PhpStaticAnalysisAnnotationsToAttributesSetList::ANNOTATIONS_TO_ATTRIBUTES
+    ]);
+```
+If you use any special configuration for the Annotations to Attributes process, for example only converting some of the annotations
+or setting some flags, use it in this last part of the block of code instead of the sample.
 
 ## Sponsor this project
 

@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
-use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisSetList;
+use PhpStaticAnalysis\RectorRule\Set\PhpStaticAnalysisAnnotationsToAttributesSetList;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withSets([
-        PhpStaticAnalysisSetList::ANNOTATIONS_TO_ATTRIBUTES
+        PhpStaticAnalysisAnnotationsToAttributesSetList::ANNOTATIONS_TO_ATTRIBUTES
     ])
     ->withConfiguredRule(
         AnnotationsToAttributesRector::class,

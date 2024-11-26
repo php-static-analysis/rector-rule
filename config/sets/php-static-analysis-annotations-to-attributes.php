@@ -11,30 +11,30 @@ use PhpStaticAnalysis\Attributes\Immutable;
 use PhpStaticAnalysis\Attributes\ImportType;
 use PhpStaticAnalysis\Attributes\Impure;
 use PhpStaticAnalysis\Attributes\Internal;
+use PhpStaticAnalysis\Attributes\IsReadOnly;
 use PhpStaticAnalysis\Attributes\Method;
 use PhpStaticAnalysis\Attributes\Mixin;
+use PhpStaticAnalysis\Attributes\Param;
 use PhpStaticAnalysis\Attributes\ParamOut;
+use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\PropertyRead;
 use PhpStaticAnalysis\Attributes\PropertyWrite;
 use PhpStaticAnalysis\Attributes\Pure;
 use PhpStaticAnalysis\Attributes\RequireExtends;
 use PhpStaticAnalysis\Attributes\RequireImplements;
+use PhpStaticAnalysis\Attributes\Returns;
 use PhpStaticAnalysis\Attributes\SelfOut;
+use PhpStaticAnalysis\Attributes\Template;
 use PhpStaticAnalysis\Attributes\TemplateContravariant;
 use PhpStaticAnalysis\Attributes\TemplateCovariant;
 use PhpStaticAnalysis\Attributes\TemplateExtends;
 use PhpStaticAnalysis\Attributes\TemplateImplements;
 use PhpStaticAnalysis\Attributes\TemplateUse;
 use PhpStaticAnalysis\Attributes\Throws;
-use Rector\Config\RectorConfig;
-use Rector\Php80\ValueObject\AnnotationToAttribute;
-use PhpStaticAnalysis\Attributes\IsReadOnly;
-use PhpStaticAnalysis\Attributes\Param;
-use PhpStaticAnalysis\Attributes\Property;
-use PhpStaticAnalysis\Attributes\Returns;
-use PhpStaticAnalysis\Attributes\Template;
 use PhpStaticAnalysis\Attributes\Type;
 use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
+use Rector\Config\RectorConfig;
+use Rector\Php80\ValueObject\AnnotationToAttribute;
 
 return RectorConfig::configure()
     ->withConfiguredRule(
@@ -81,5 +81,4 @@ return RectorConfig::configure()
             'excludeAnnotations' => [],
             'useTypeAttributeForTypeClassAnnotation' => false,
         ]
-    )
-    ->withImportNames();
+    );

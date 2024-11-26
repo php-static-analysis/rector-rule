@@ -1,0 +1,29 @@
+--- /dev/null
++++ ../src/Application/FileProcessor.php
+@@ -3,6 +3,7 @@
+ declare (strict_types=1);
+ namespace Rector\Application;
+ 
++use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+ use RectorPrefix202412\Nette\Utils\FileSystem;
+ use PHPStan\AnalysedCodeException;
+ use PHPStan\Parser\ParserErrorsException;
+@@ -66,7 +67,9 @@
+      * @readonly
+      */
+     private NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator;
+-    public function __construct(BetterStandardPrinter $betterStandardPrinter, RectorNodeTraverser $rectorNodeTraverser, SymfonyStyle $symfonyStyle, FileDiffFactory $fileDiffFactory, ChangedFilesDetector $changedFilesDetector, ErrorFactory $errorFactory, FilePathHelper $filePathHelper, PostFileProcessor $postFileProcessor, RectorParser $rectorParser, NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator)
++    public function __construct(BetterStandardPrinter $betterStandardPrinter, RectorNodeTraverser $rectorNodeTraverser, SymfonyStyle $symfonyStyle, FileDiffFactory $fileDiffFactory, ChangedFilesDetector $changedFilesDetector, ErrorFactory $errorFactory, FilePathHelper $filePathHelper, PostFileProcessor $postFileProcessor, RectorParser $rectorParser, NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator,
++        private PhpDocInfoFactory $phpDocInfoFactory
++    )
+     {
+         $this->betterStandardPrinter = $betterStandardPrinter;
+         $this->rectorNodeTraverser = $rectorNodeTraverser;
+@@ -90,6 +93,7 @@
+         $fileHasChanged = \false;
+         $filePath = $file->getFilePath();
+         do {
++            $this->phpDocInfoFactory->clearCache();
+             $file->changeHasChanged(\false);
+             // 1. change nodes with Rector Rules
+             $newStmts = $this->rectorNodeTraverser->traverse($file->getNewStmts());

@@ -1,0 +1,35 @@
+--- /dev/null
++++ ../src/PhpParser/NodeTraverser/RectorNodeTraverser.php
+@@ -7,6 +7,8 @@
+ use PhpParser\Node\Stmt;
+ use PhpParser\NodeTraverser;
+ use PhpParser\NodeVisitor;
++use PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector;
++use PhpStaticAnalysis\RectorRule\AttributesToAnnotationsRector;
+ use Rector\Configuration\ConfigurationRuleFilter;
+ use Rector\Contract\Rector\RectorInterface;
+ use Rector\VersionBonding\PhpVersionedFilter;
+@@ -97,6 +99,23 @@
+         $this->visitors = $this->phpVersionedFilter->filter($this->rectors);
+         // filter by configuration
+         $this->visitors = $this->configurationRuleFilter->filter($this->visitors);
++
++        $first = [];
++        $middle = [];
++        $last = [];
++
++        foreach ($this->visitors as $visitor) {
++            if ($visitor instanceof AttributesToAnnotationsRector) {
++                $first[] = $visitor;
++            } elseif ($visitor instanceof AnnotationsToAttributesRector) {
++                $last[] = $visitor;
++            } else {
++                $middle[] = $visitor;
++            }
++        }
++
++        $this->visitors = array_merge($first, $middle, $last);
++
+         $this->areNodeVisitorsPrepared = \true;
+     }
+ }

@@ -11,7 +11,6 @@ use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
@@ -53,6 +52,7 @@ use PhpStaticAnalysis\Attributes\ParamOut;
 use PhpStaticAnalysis\Attributes\Property;
 use PhpStaticAnalysis\Attributes\Returns;
 use PhpStaticAnalysis\Attributes\Type;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
@@ -62,6 +62,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php80\NodeManipulator\AttributeGroupNamedArgumentManipulator;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use Rector\Rector\AbstractRector;
+use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -207,6 +208,8 @@ CODE_SAMPLE
     #[Param(node: 'Stmt\Class_|Stmt\ClassConst|Stmt\ClassMethod|Stmt\Function_|Stmt\Interface_|Stmt\Property|Stmt\Trait_')]
     public function refactor(Node $node): ?Node
     {
+        $nodeModified = false;
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
 
         $attributeGroups = [];
@@ -215,6 +218,8 @@ CODE_SAMPLE
         }
 
         if ($attributeGroups !== []) {
+            $nodeModified = true;
+
             $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
             $this->attributeGroupNamedArgumentManipulator->decorate($attributeGroups);
@@ -262,6 +267,8 @@ CODE_SAMPLE
                         $useAttributeGroups = $this->processAnnotations($phpDocInfo);
 
                         if ($useAttributeGroups !== []) {
+                            $nodeModified = true;
+
                             $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($stmt);
 
                             $this->attributeGroupNamedArgumentManipulator->decorate($useAttributeGroups);
@@ -276,7 +283,7 @@ CODE_SAMPLE
             $node->attrGroups = array_merge($node->attrGroups, $attributeGroups);
         }
 
-        return $node;
+        return $nodeModified ? $node : null;
     }
 
     #[Returns('AttributeGroup[]')]
@@ -350,6 +357,7 @@ CODE_SAMPLE
                     }
                     $attributeComment = $tagValueNode->description;
                     break;
+                case $tagValueNode instanceof DoctrineAnnotationTagValueNode:
                 case $tagValueNode instanceof DeprecatedTagValueNode:
                 case $tagValueNode instanceof GenericTagValueNode:
                     $args = [];
@@ -442,6 +450,7 @@ CODE_SAMPLE
         return $attributeGroups;
     }
 
+    #[Returns('PhpVersion::PHP_80')]
     public function provideMinPhpVersion(): int
     {
         return PhpVersionFeature::ATTRIBUTES;

@@ -1,0 +1,13 @@
+--- /dev/null
++++ ../src/BetterPhpDocParser/PhpDocInfo/PhpDocInfoFactory.php
+@@ -55,6 +55,10 @@
+         $this->annotationNaming = $annotationNaming;
+         $this->phpDocNodeByTypeFinder = $phpDocNodeByTypeFinder;
+     }
++    public function clearCache(): void
++    {
++        $this->phpDocInfosByObjectId = [];
++    }
+     public function createFromNodeOrEmpty(Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+     {
+         // already added
