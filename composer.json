@@ -29,7 +29,7 @@
         "php": ">=8.0",
         "php-static-analysis/attributes": "^0.3.1 || dev-main",
         "php-static-analysis/node-visitor": "^0.3.1 || dev-main",
-        "rector/rector": "2.0.0rc1"
+        "rector/rector": "~2.0.0"
     },
     "require-dev": {
         "php-static-analysis/phpstan-extension": "dev-main",
