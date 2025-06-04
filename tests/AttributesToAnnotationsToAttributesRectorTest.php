@@ -14,6 +14,17 @@ final class AttributesToAnnotationsToAttributesRectorTest extends AbstractRector
      */
     public function test(string $filePath): void
     {
+        $fileName = basename($filePath);
+        $this->expectOutputString(
+            <<<TXT
+
+WARNING: On fixture file "$fileName" for test "test\PhpStaticAnalysis\RectorRule\AttributesToAnnotationsToAttributesRectorTest"
+File not changed but some Rector rules applied:
+ * PhpStaticAnalysis\RectorRule\AnnotationsToAttributesRector
+ * PhpStaticAnalysis\RectorRule\AttributesToAnnotationsRector
+
+TXT
+        );
         $this->doTestFile($filePath);
     }
 

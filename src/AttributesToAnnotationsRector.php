@@ -23,7 +23,6 @@ use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 final class AttributesToAnnotationsRector extends AbstractRector implements RectorInterface, MinPhpVersionInterface
 {
     private AttributeNodeVisitor $nodeVisitor;

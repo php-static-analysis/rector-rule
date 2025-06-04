@@ -68,7 +68,6 @@ use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 final class AnnotationsToAttributesRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface
 {
     #[Type('AnnotationToAttribute[]')]
