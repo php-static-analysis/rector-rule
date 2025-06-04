@@ -9,7 +9,7 @@ use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use PhpStaticAnalysis\Attributes\Returns;
 
-class Plugin implements PluginInterface, EventSubscriberInterface
+final class Plugin implements PluginInterface, EventSubscriberInterface
 {
     public function activate(Composer $composer, IOInterface $io)
     {
